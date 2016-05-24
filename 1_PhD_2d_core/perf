@@ -1,0 +1,142 @@
+http://stackoverflow.com/questions/2702253/alternative-to-nested-loop-for-comparison
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Part currentPart = null;
+Part nextPart = null;
+List sameParts = null;
+ 
+for(int v=0;v<numOfObjects;v++) {
+            currentPart = (Part) notRealParts.get(v);                               
+            sameParts = new ArrayList(); 
+             
+            sameParts.add(currentPart);             
+             
+            for ( int j = v+1; j<numOfObjects;j++) {                 
+                nextPart = (Part)notRealParts.get(j);               
+                //compare master-view; if equal add to the vector
+                if(areMasterViewsEqual(currentPart, nextPart)) {
+                    sameParts .add(nextPart);                                           
+                    notRealParts.remove(j);
+                    j--;
+                    numOfObjects--; 
+                }                                                                       
+            }
+                     DB_API(sameParts);
+ 
+}
+
+public static boolean areMasterViewsEqual(Part part1, Part part2 ){
+        boolean areEqual = false;
+        if (part1.getMaster().equals(part2.getMaster())) {
+            View part1View = part1.getView();
+            View part2View = part2.getView();
+            areEqual = (part1View ==null)? (part2View == null) : part1View.equals(part2View);           
+        }
+        return areEqual;
+    }
+
+int numOfObjects = resultList.size();
+         
+        for(int i=0;i<numOfObjects;i++) {
+             
+            Part part = (Part) notRealParts.get(v);    
+             
+            //filter out the One-Off versions
+                 
+                masterOid = (part.getMaster()+"").split(":")[1];
+                viewOid = (part.getView() != null)? ((part.getView()+"").split(":")[1]) : "null";
+                 
+                keyStr = masterOid+ "^" + viewOid;
+                 
+                if(hashMap.containsKey(keyStr)){
+                    similarParts = hashMap.get(keyStr);
+                    similarParts.add(part);
+                    hashMap.put(keyStr,similarParts);               
+                }else{
+                    similarParts = new ArrayList<Part>();
+                    similarParts.add(part);
+                    hashMap.put(keyStr,similarParts);
+                }
+        }
+         
+    DB call (sameParts);
+        }
+        
+        
+        if(hashMap.containsKey(keyStr)){  
+    similarParts = hashMap.get(keyStr);  
+    similarParts.add(part);  
+    hashMap.put(keyStr,similarParts);  
+    }
+    
+    
+    
+------------------------------------------------------------------------------------------------------------------------------------------------    
+Create a FileHash class to represent file hash values. This needs to define equals(Object) and hashCode() methods that implement byte-wise equality of the file hashes.
+
+Create a HashMap<FileHash, List<File>> map instance.
+
+For each File in your input ArrayList:
+
+Calculate the hash for the file, and create a FileHash object for it.
+Lookup the FileHash in the map:
+If you found an entry, perform a byte-wise comparison of your current file with each of the files in the list you got from the map. If you find a duplicate file in the list, BINGO! Otherwise add current file to the list.
+If you didn't find an entry, create a new map entry with the "FileHash` as the key, and the current file as the first element of the value list.
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+If you use a good cryptographic hash function to generate your file hashes, then the chances of finding an entry in 3.3 that has more than one element in the list are vanishingly small, and the chances that the byte-wise comparison of the files will not say the files are equal is also vanishingly small. However, the cost of calculating the crypto hash will be greater than the cost of calculating a lower quality hash.
+If you do use a lower quality hash, you can mitigate the potential cost of comparing more files by looking at the file sizes before you do the byte-wise comparison. If you do that you can make the map type HashMap<FileHash, List<FileTuple>> where FileTuple is a class that holds both a File and its length.
+You could potentially decrease the cost of hashing by using a hash of just (say) the first block of each file. But that increases the probability that two files may have the same hash but still be different; e.g. in the 2nd block. Whether this is significant depends on the nature of the files. (But for example if you just checksummed the first 256 bytes of a collection of source code files, you could get a huge number of collisions ... due to the presence of identical copyright headers!)
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+HashSet<YourFile> fileSet = new HashSet<YourFile>();
+ArrayList<YourFile> files = new ArrayList<YourFile>();
+
+class YourFile
+{
+  int hashcode = -1;
+
+  public int hashCode()
+  {
+     // override it to provide an hashcode based on file contents
+     // you can also cache it to avoid recalculating anything
+
+     if (hashcode == -1)
+       hashcode = calculateIt();
+
+     return hashcode;
+  }
+}
+
+// fill up files
+files.add(...);
+
+// do comparisons
+for (YourFile f : files)
+{
+  if (fileSet.contains(f))
+    // f and fileSet.get(f) are equal: this is a tricky utilization of the hashCode() method so be careful about it!
+  else
+  {
+    fileSet.put(f);
+    // since there's not a file with same hashcode you just add this one
+  }
+}
+
+This will actually drop the inner loop, since when you use hashSet.contains it will check all the already added files, but with an O(1) complexity.
+
+As stated from doublep you have to be careful about performances, since when you plainly check bytes you will stop as soon as you find two different bytes while calculating the hash will need to check the whole file. This will work good when you have many files or when the file are rather small.. the best thing to do would be to benchmark both approaches and see if there are notable differences.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/commons-configuration-1.10.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hadoop-hdfs-2.4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hadoop-common-2.4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hadoop-mapreduce-client-common-2.4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hadoop-mapreduce-client-jobclient-2.4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hadoop-mapreduce-client-shuffle-2.4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/libthrift-0.9.1.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/thrift-server-0.3.7.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/jamm-0.2.8.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/apache-cassandra-2.1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/apache-cassandra-clientutil-2.1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/apache-cassandra-thrift-2.1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/metrics-core-3.0.2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/netty-3.9.0.Final.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/slf4j-api-1.7.5.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/super-csv-2.1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hadoop-mapreduce-client-core-2.4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/cassandra-driver-core-2.0.5.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/guava-16.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/snakeyaml-1.11.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hbase-common-0.98.9-hadoop2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hbase-client-0.98.9-hadoop2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hbase-server-0.98.9-hadoop2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hbase-hadoop-compat-0.98.9-hadoop2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/hbase-protocol-0.98.9-hadoop2.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/htrace-core-2.04.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/high-scale-lib-1.0.6.jar"/>
+	<classpathentry kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/MapmzOutKey.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
