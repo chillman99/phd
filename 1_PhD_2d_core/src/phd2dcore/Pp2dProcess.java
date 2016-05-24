@@ -47,24 +47,12 @@ public class Pp2dProcess {
 			}
 			else //Output data for this point
 				{
-				
-				//if( (WeightedPoints[i].getWpm() >=372.00 ) && (WeightedPoints[i].getWpm() < 374.00)){outKey = 0;}
-				
-				if (WeightedPoints.get(i).getCharge() > 1					
-					//Debugging, force single reducer with small range of points	
-					//&& (WeightedPoints[i].getWpm() >=372.00 ) && (WeightedPoints[i].getWpm() < 374.00)
-					) 
+				if (WeightedPoints.get(i).getCharge() > 1) 
 				{	
 					//Get output key to decide which reducer we are sent to.
-					//WeightedPoints.get(i).setoutKey(MapmzOutKey104_244.getKey(WeightedPoints.get(i).getWpm()));
-					//WeightedPoints.get(i).setoutKey(MapmzOutKey465_pt2441s1fp1a1.getKey(WeightedPoints.get(i).getWpm()));
-		     		String[] returnKeys = MapmzOutKey.getKey(WeightedPoints.get(i).getWpm());
+					String[] returnKeys = MapmzOutKey.getKey(WeightedPoints.get(i).getWpm());
 					WeightedPoints.get(i).setoutKey(Integer.parseInt(returnKeys[0]));
 					WeightedPoints.get(i).setoutKey2(Integer.parseInt(returnKeys[1]));
-					
-					//Test Code!!!!
-					//WeightedPoints.get(i).setoutKey(0);
-					//Test Code!!!!
 					
 					outputPoints.add(WeightedPoints.get(i));
 				}
