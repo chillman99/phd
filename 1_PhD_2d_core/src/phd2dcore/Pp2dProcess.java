@@ -29,7 +29,6 @@ public class Pp2dProcess {
 		ArrayList<PointWeighted> WeightedPointsTemp = Pp2dWeightedPeaks.WeightedPeaks(mzData, intensityData);
 		ArrayList<PointWeighted> outputPoints = new ArrayList<PointWeighted>();
 		
-		
 		//Isotopic peak detection 
 		if (Integer.parseInt(scLevel) == 1) {
 			ArrayList<PointWeighted> WeightedPoints = Pp2dISOPeaks.ISOPeaks(WeightedPointsTemp);
