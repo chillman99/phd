@@ -83,7 +83,10 @@ public class PeaksPick3d implements PartitionFunction {
 			//Now we can sort on by Retention Time followed by WPM using a custom compare from MountainPoint   		   
 		   	Collections.sort(mountainPoints, new MountainPointCompare());		  		   
 		   	//Create Arraylist of 3D peaks
-		   	ArrayList<PointMountain> outputPoints = Pp3d3DPeaks.ThreeDPeaks(mountainPoints);
+			//Instantiate Reduce3Dpeaks object and run the method
+		   	Pp3d3DPeaks run3dPeaks = new Pp3d3DPeaks();			
+		   	ArrayList<PointMountain> outputPoints = run3dPeaks.ThreeDPeaks(mountainPoints);
+		   	
 		   	//Smooth Intensities of the 3D peaks
 		   	Pp3dSmoothIntesity.smoothIntensity(outputPoints);	
 			//Recalculate 3D peaks taking into account Overlapping Peaks		
