@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pp3d3DPeaks {
-	static ArrayList<PointMountain> outputPoints = new ArrayList<PointMountain>();
-	static int mountainID = 0;
-   	static int i = 0; //Outer Loop Counter
-   	static int j = 0; //Inner Loop Counter
-   	static int iterations = 0;
-   	static double currRT = 0.0;
-   	static int peakFound = 0;  	
-   	static int matchpos1 = 0;
-   	static List<Integer> pointList = new ArrayList<Integer>(); //store the found peaks in a list and skip them next time
-   	
-   	public static ArrayList<PointMountain> ThreeDPeaks(ArrayList<PointMountain> mountainPoints) {
+    ArrayList<PointMountain> outputPoints = new ArrayList<PointMountain>();
+	int mountainID = 0;
+   	int i = 0; //Outer Loop Counter
+   	int j = 0; //Inner Loop Counter
+   	int iterations = 0;
+   	double currRT = 0.0;
+   	int peakFound = 0;  	
+   	int matchpos1 = 0;
+   	List<Integer> pointList = new ArrayList<Integer>(); //store the found peaks in a list and skip them next time
+	
+   	public ArrayList<PointMountain> ThreeDPeaks(ArrayList<PointMountain> mountainPoints) {
 		int currScan =0;
 		int prevScan =-1;
 		int nextRTIndex = 0;
@@ -90,7 +90,7 @@ public class Pp3d3DPeaks {
 		return outputPoints;
 	}
 	
-	public static void MatchPeaks(ArrayList<PointMountain> mountainPoints) {
+	private void MatchPeaks(ArrayList<PointMountain> mountainPoints) {
 		int k = 0;
 		//Loop through the points for this RT and look for match
 		while (peakFound == 0 & j <= mountainPoints.size()-2 
