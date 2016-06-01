@@ -51,6 +51,8 @@ public class PointMountain implements Comparable<PointMountain>{
 		//Check mass inside the 7 ppm window	
 		if (this.charge * this.wpm >= ((other.wpm * other.charge) - (other.wpm * other.charge * 0.000007))  
 			&  (this.charge * this.wpm <= (other.wpm * other.charge) + (other.wpm * other.charge * 0.000007))
+			//Added 01/06/2017
+			&  (this.retentionTime != other.retentionTime)
 					) return true; 
 			return false;
 		}
@@ -66,10 +68,11 @@ public class PointMountain implements Comparable<PointMountain>{
         private int newMountainID;
         private double normI;
         private int checked;
+        private int boundary;
         
         public PointMountain (	double wpm, double sumI, double smoothI, double retentionTime, int scanNumber, 
         						int scanOrder, int charge, int mountainID, int newMountainID, double normI,
-        						int checked) {
+        						int checked, int boundary) {
 			super();
 			this.wpm = wpm;
 			this.sumI = sumI;
@@ -82,6 +85,7 @@ public class PointMountain implements Comparable<PointMountain>{
 			this.newMountainID = newMountainID;
 			this.normI = normI;
 			this.checked = checked;
+			this.boundary = boundary;
 		}       
 	
 		public double getMass() {
@@ -175,6 +179,14 @@ public class PointMountain implements Comparable<PointMountain>{
 		
 		public void setChecked(int checked) {
 			this.checked = checked;
+		}
+		
+		public int getBoundary() {
+			return boundary;
+		}
+		
+		public void setBoundary(int boundary) {
+			this.boundary = boundary;
 		}
 		
 		//Custom Compare function to allow array sorting on Mass
