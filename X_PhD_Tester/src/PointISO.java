@@ -1,5 +1,3 @@
-package phdflinkbatch;
-
 public class PointISO {
 	
     @Override

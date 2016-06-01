@@ -1,5 +1,3 @@
-package phdflinkbatch;
-
 public class PointCheck implements Comparable<PointCheck>{
 	
         private double wpmA;
