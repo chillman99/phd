@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ReduceISOPeaks {
 	@SuppressWarnings("unused")
@@ -204,15 +206,12 @@ public class ReduceISOPeaks {
 				   
 				   }
 						
-		   }
-
-		   match = 0;		   
-	   }			
-	   
-   }
-
+			   }	
+			   match = 0;		   
+		   }			
+		   //System.out.println("Outer Loop:" + "\t" + System.currentTimeMillis()  + "\t" + outerWPM  + "\t" + outerMAXRT  + "\t" + outerCharge);
+		}
 	return MonoISO;
-	
-}
+	}
 
 }

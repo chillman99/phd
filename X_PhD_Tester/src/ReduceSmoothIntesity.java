@@ -1,13 +1,24 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ReduceSmoothIntesity {
 	
-	public static void smoothIntensity (ArrayList<PointMountain> outputPoints) {
-	
+	public static void smoothIntensity (ArrayList<PointMountain> outputPoints) {	
 		int currMountainID = 0;
+		Collections.sort(outputPoints, new MountainPointCompare());
 		//Smooth Intensities
+		
+		//Do we need to handle -1 curve?
+		int startpeaks = 0;
 		try {
-		for(int k=1; k <= outputPoints.size()-2; k++)    		    
+//		for(int j=startpeaks; j <= outputPoints.size()-2; j++)    		    
+//			{
+//				if (currMountainID == -1) break;
+//				j++;
+//				startpeaks = j;
+//			}
+		
+		for(int k=startpeaks; k <= outputPoints.size()-2; k++)    		    
 		{									
 			if (currMountainID != outputPoints.get(k).getMountainID()){
 				//first point for a curve					

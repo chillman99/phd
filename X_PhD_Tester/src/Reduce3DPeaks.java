@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Reduce3DPeaks {
-	ArrayList<PointMountain> outputPoints = new ArrayList<PointMountain>();
+	Set<PointMountain> outputPoints = new HashSet<PointMountain>();
 	int mountainID = 0;
    	int i = 0; //Outer Loop Counter
    	int j = 0; //Inner Loop Counter
@@ -10,27 +13,31 @@ public class Reduce3DPeaks {
    	double currRT = 0.0;
    	int peakFound = 0;  	
    	int matchpos1 = 0;
+   	int boundaryCheck = 0;
    	List<Integer> pointList = new ArrayList<Integer>(); //store the found peaks in a list and skip them next time
    	
-	@SuppressWarnings("unused")
-	public ArrayList<PointMountain> ThreeDPeaks(ArrayList<PointMountain> mountainPoints) {
-		//double timeW = 10;						//Constant for Time Window 0.18 minutes = 11 secs, approx 40 Scans
+	@SuppressWarnings({ "unused" })
+	public ArrayList<PointMountain> ThreeDPeaks(ArrayList<PointMountain> mountainPoints) {		
 		int currScan =0;
-		//int firstScan =0;
 		int prevScan =-1;
 		int nextRTIndex = 0;
 	    int holdpos = 0;
 		double mountainRT = 0;
-	    //int ppf = 0;
-	    	int loopNum = 0;	    	
+	    int loopNum = 0;	    	
 	    //Outer Loop
 		while (i <= mountainPoints.size()-2) //need to check next two scans, -2 to avoid array out of bounds error
 	    {  			 
 		 mountainID++;
 //if (mountainID == 927 ) System.out.println("Outer Loop Number:"+i + "\t" + loopNum);
 
-			mountainPoints.get(i).setChecked(1); 			
+			//is this current point at the boundary of the partition?
+			//if so we must discard any peak formed but still need to build it first
+			if(mountainPoints.get(i).getBoundary() == 1){
+				boundaryCheck =1;
+			}
+			
 			//flag this point as having been checked for matches
+			mountainPoints.get(i).setChecked(1);
 			////System.out.println(Integer.toString(iterations) + "\t" + Integer.toString(i) + "\t" + Integer.toString(j)
 			//		+ "\t" +  Integer.toString(ppf) + "\t" + Integer.toString(matchpos1) + "\t" + Integer.toString(holdpos));
 			//iterations++;
@@ -59,11 +66,9 @@ public class Reduce3DPeaks {
 //if (mountainID == 927 ) System.out.println("FastForward:"+j + "\t" +  + mountainPoints.get(j).getWpm() + "\t" + mountainPoints.get(j).getScanOrder() + "\t" + mountainPoints.get(j).getScanNumber() + "\t" + mountainPoints.get(j).getRetentionTime() + "\t" + mountainPoints.get(j).getSumI() + "\t" + mountainPoints.get(j).getSmoothI() + "\t" + mountainPoints.get(j).getCharge()  + "\t" + mountainPoints.get(j).getMountainID() + "\t" + mountainPoints.get(j).getNewMountainID() + "\t" + mountainPoints.get(j).getMass());
 
 			currRT = mountainPoints.get(j).getRetentionTime();
-			//check this RT is within 10 sec window from first point of 3D curve	
-			//if (currRT - mountainRT < timeW) {
-			//Only check next 40 scans = approx 10 seconds
-			//if (currScan - firstScan < 40) {
-			if (scanCount < 40) {	
+			//check this RT is within 30 seconds window from first point of 3D curve	
+			//Only check next 120 scans = approximately 30 seconds
+			if (scanCount < 120) {	
 				
 				//Call MatchPeaks to look for a matching peak 
 //if (mountainID == 927 ) System.out.println("Check First Scan:" + peakFound);				
@@ -75,6 +80,7 @@ public class Reduce3DPeaks {
 					currRT = mountainPoints.get(j).getRetentionTime();
 					MatchPeaks(mountainPoints);	
 				}
+							
 				scanCount++;			
 			}
 			else {
@@ -86,10 +92,8 @@ public class Reduce3DPeaks {
 			if (peakFound > 0) {
 				//pointList.add(matchpos1);
 				peakFound = 0;
-				//ppf = 1;
 				
-				//	i=matchpos1; //carry on looping from the matched point
-	
+				//carry on looping from the matched point	
 				while (i < mountainPoints.size()){
 					if (mountainPoints.get(matchpos1).getChecked() == 1){
 						matchpos1++;
@@ -105,6 +109,10 @@ public class Reduce3DPeaks {
 				//check next point is not in a peak
 				holdpos++;
 				mountainID++;
+				if(mountainPoints.get(i).getBoundary() == 1){
+					boundaryCheck =1;
+				} else boundaryCheck = 0;
+				
 				//ppf = 0;
 				while (i < mountainPoints.size()){
 					if (pointList.contains(holdpos)){
@@ -134,7 +142,15 @@ public class Reduce3DPeaks {
 			loopNum++;
 			
 		} //Outer Loop
-		return outputPoints;
+		ArrayList<PointMountain> outputPointsAL = new ArrayList<PointMountain>();
+		
+		for (PointMountain objLoop : outputPoints ) {    		    		
+			if (objLoop.getMountainID() != -1) outputPointsAL.add(objLoop);			
+		}
+		
+		//outputPointsAL.addAll(outputPoints);
+		Collections.sort(outputPointsAL, new MountainPointCompare());
+		return outputPointsAL;
 	}
 	
 	@SuppressWarnings("unused")
@@ -178,6 +194,7 @@ public class Reduce3DPeaks {
     		   		if (j > 0 && mountainPoints.get(j).getWpm() == mountainPoints.get(j-1).getWpm()){
     		   			j++;
     		   		}
+    		   		
     		 	}
     		 	j=matchpos1;
     		 	
@@ -192,23 +209,29 @@ public class Reduce3DPeaks {
     		 		//mountainPoints.get(j).setMountainID(mountainPoints.get(j).getMountainID());
 //if (mountainID == 927 )System.out.println("MountainID j SET:"+i + "\t" + j + "\t" + mountainPoints.get(j).getWpm() + "\t" + mountainID);    		 		
     		 	} //else {
+   		 			if(mountainPoints.get(i).getBoundary() == 1)boundaryCheck =1; 
+   		 			if(boundaryCheck==1){
+   		 				mountainPoints.get(i).setNewMountainID(9999);
+	    		 		mountainPoints.get(j).setNewMountainID(9999);	
+   		 			}else {
 	    		 	mountainPoints.get(i).setMountainID(mountainID);				    		 		 	
 	    		 	mountainPoints.get(j).setMountainID(mountainID);
+   		 			}	    		 	
     		 //	}
-   		 peakFound = 1;
-		    	if (!(outputPoints.contains(mountainPoints.get(i)))) {
+   		 		peakFound = 1;
+		    	//if (!(outputPoints.contains(mountainPoints.get(i)))) {
 		    		outputPoints.add (mountainPoints.get(i));			
 		    		pointList.add(i);
 //if (mountainID == 927 ) System.out.println("AddPeakOuter:"+i + "\t" + j + "\t" + mountainPoints.get(i).getWpm() + "\t" + mountainPoints.get(i).getScanOrder() + "\t" + mountainPoints.get(i).getScanNumber() + "\t" + mountainPoints.get(i).getRetentionTime() + "\t" + mountainPoints.get(i).getSumI() + "\t" + mountainPoints.get(i).getSmoothI() + "\t" + mountainPoints.get(i).getCharge()  + "\t" + mountainPoints.get(i).getMountainID() + "\t" + mountainPoints.get(i).getNewMountainID() + "\t" + mountainPoints.get(i).getMass());
 //if (mountainID == 927 ) System.out.println("AddPeakOuter MountainID:"+i + "\t" +  + mountainID);	
-    			}
+    			//}
 		    	
-		    	if (!(outputPoints.contains(mountainPoints.get(j)))) {
+		    	//if (!(outputPoints.contains(mountainPoints.get(j)))) {
 		    		outputPoints.add (mountainPoints.get(j));			
 		    		pointList.add(j);
 //if (mountainID == 927 ) System.out.println("AddPeakInner:"+i + "\t" + j + "\t" + mountainPoints.get(j).getWpm() + "\t" + mountainPoints.get(j).getScanOrder() + "\t" + mountainPoints.get(j).getScanNumber() + "\t" + mountainPoints.get(j).getRetentionTime() + "\t" + mountainPoints.get(j).getSumI() + "\t" + mountainPoints.get(j).getSmoothI() + "\t" + mountainPoints.get(j).getCharge()  + "\t" + mountainPoints.get(j).getMountainID() + "\t" + mountainPoints.get(j).getNewMountainID() + "\t" + mountainPoints.get(j).getMass());
 //if (mountainID == 927 ) System.out.println("AddPeakInner MountainID:"+j + "\t" +  + mountainID);
-    			}	
+    			//}	
 		    	
 			}
 		    //Added to test peakFound speedup
