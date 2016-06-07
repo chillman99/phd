@@ -115,12 +115,21 @@ public class PointThreeD {
 			
 	}
 
-	//comparator class to sort on curveID
-	class ThreeDPointCompare implements Comparator<PointThreeD>{
-		
-	 		public int compare(PointThreeD tp1, PointThreeD tp2) { 			
-				int value1 = Double.compare(tp1.getCurveID(), tp2.getCurveID());				
-				return value1;			
+//comparator class to sort on curveID
+class ThreeDPointCompare implements Comparator<PointThreeD>{
+	
+//comparator class to sort on charge, followed by retention time followed by WPM
+ 	public int compare(PointThreeD mp1, PointThreeD mp2) { 			
+		int value1 = Double.compare(mp1.getCharge(), mp2.getCharge());
+		if(value1 == 0){
+			int value2 = Double.compare(mp1.getWpRT(), mp2.getWpRT());
+			if (value2 == 0){
+				int value3 = Double.compare(mp1.getWpm(), mp2.getWpm());
+				return value3;
 			}
-	 	
-	}
+			return value2;			
+		}
+		return value1;				
+ 	}
+ 	
+}

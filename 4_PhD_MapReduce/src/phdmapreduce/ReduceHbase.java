@@ -3,6 +3,8 @@ package phdmapreduce;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
@@ -18,13 +20,13 @@ public class ReduceHbase extends TableReducer<IntWritable, Text, ImmutableBytesW
 
 	public void reduce(IntWritable key, Iterable<Text> values, Context context) throws IOException {
 		    ArrayList<PointMountain> mountainPoints = new ArrayList<PointMountain>();		    
-		    
+		    Set<PointMountain> inputPoints = new HashSet<PointMountain>();	
 		   	//Cache reducer values in an array for processing - must fit in memory, depends on number of reducers
 			//Read all the weighted points into an in-memory object array
 		   	for (Text line : values) {
 	   			String[] tempStr;	   
 	   		    tempStr = line.toString().split("\t");
- 	   		    mountainPoints.add (
+	   		    	inputPoints.add (
    		    		new PointMountain(	
 	    				Double.parseDouble(tempStr[4]),
 						Double.parseDouble(tempStr[5]),
@@ -33,14 +35,15 @@ public class ReduceHbase extends TableReducer<IntWritable, Text, ImmutableBytesW
 						Integer.parseInt(tempStr[0]),
 						0,
 						Integer.parseInt(tempStr[6]),
-						-1,1,0,0));
+						-1,1,0,0,0));
 		   	}
-		   
+		    mountainPoints.addAll(inputPoints);
 		   	if (mountainPoints.size() > 5) {
 			//Now we can sort on by Retention Time followed by WPM using a custom compare from MountainPoint   		   
 		   	Collections.sort(mountainPoints, new MountainPointCompare());		  		   
 		   	//Create Arraylist of 3D peaks
-		   	ArrayList<PointMountain> outputPoints = Pp3d3DPeaks.ThreeDPeaks(mountainPoints);
+		   	Pp3d3DPeaks run3dPeaks = new Pp3d3DPeaks();			
+		   	ArrayList<PointMountain> outputPoints = run3dPeaks.ThreeDPeaks(mountainPoints);
 		   	//Smooth Intensities of the 3D peaks
 		   	Pp3dSmoothIntesity.smoothIntensity(outputPoints);	
 			//Recalculate 3D peaks taking into account Overlapping Peaks		

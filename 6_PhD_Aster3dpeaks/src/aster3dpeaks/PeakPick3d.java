@@ -2,7 +2,9 @@ package aster3dpeaks;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.asterdata.ncluster.sqlmr.OutputInfo;
 import com.asterdata.ncluster.sqlmr.PartitionFunction;
@@ -15,10 +17,10 @@ import com.asterdata.ncluster.sqlmr.data.SqlType;
 
 import phd3dcore.*;
 
-public class PeaksPick3d implements PartitionFunction {
+public class PeakPick3d implements PartitionFunction {
 	public static String inputFile = new String();
 	
-	public PeaksPick3d(RuntimeContract contract) {
+	public PeakPick3d(RuntimeContract contract) {
 
 		List<SqlType> expectedInputTypes = new ArrayList<SqlType>();
 		expectedInputTypes.add(SqlType.getType("integer"));			//pkey
@@ -53,14 +55,15 @@ public class PeaksPick3d implements PartitionFunction {
 	public void operateOnPartition(PartitionDefinition partitionDefinition, RowIterator inputIterator, RowEmitter outputEmitter)
 	{
 		ArrayList<PointMountain> mountainPoints = new ArrayList<PointMountain>();		    
-	    	 
+		Set<PointMountain> inputPoints = new HashSet<PointMountain>();
+		
 	   	//Cache Pp3dr values in an array for processing - must fit in memory, depends on number of Pp3drs
 		//Read all the weighted points into an in-memory object array
 		int pkey = 0;
 		int count = 0;
 		while ( inputIterator.advanceToNextRow() ){
 			    
-	   		    mountainPoints.add (
+					inputPoints.add (
 		    		new PointMountain(	
 		    		inputIterator.getDoubleAt(5),
 		    		inputIterator.getDoubleAt(6),
@@ -69,7 +72,8 @@ public class PeaksPick3d implements PartitionFunction {
 		    		inputIterator.getIntAt(1),
 					0,
 					inputIterator.getIntAt(7),
-					-1,1,0,0));
+					-1,1,0,0,0));
+	   		    
 	   		    if (count>0){
 	   		    	if (pkey !=  inputIterator.getIntAt(0) ){
 	   		    		pkey = -1;
@@ -78,7 +82,9 @@ public class PeaksPick3d implements PartitionFunction {
 	   		    } else pkey = inputIterator.getIntAt(0);
 	   		    count++;
 		}
-        
+		
+		mountainPoints.addAll(inputPoints);
+         
 		if (mountainPoints.size() > 5) {
 			//Now we can sort on by Retention Time followed by WPM using a custom compare from MountainPoint   		   
 		   	Collections.sort(mountainPoints, new MountainPointCompare());		  		   

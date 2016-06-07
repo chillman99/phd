@@ -209,14 +209,17 @@ public class Reduce3DPeaks {
     		 		//mountainPoints.get(j).setMountainID(mountainPoints.get(j).getMountainID());
 //if (mountainID == 927 )System.out.println("MountainID j SET:"+i + "\t" + j + "\t" + mountainPoints.get(j).getWpm() + "\t" + mountainID);    		 		
     		 	} //else {
-   		 			if(mountainPoints.get(i).getBoundary() == 1)boundaryCheck =1; 
-   		 			if(boundaryCheck==1){
-   		 				mountainPoints.get(i).setNewMountainID(9999);
-	    		 		mountainPoints.get(j).setNewMountainID(9999);	
+   		 	
+   		 			if(mountainPoints.get(i).getBoundary() == 1) boundaryCheck =1; 
+   		 			//Change here to remove all boundary peaks from the output...
+   		 			if(boundaryCheck != 1){
+	   		 			mountainPoints.get(i).setMountainID(mountainID);				    		 		 	
+		    		 	mountainPoints.get(j).setMountainID(mountainID);
    		 			}else {
-	    		 	mountainPoints.get(i).setMountainID(mountainID);				    		 		 	
-	    		 	mountainPoints.get(j).setMountainID(mountainID);
+	   		 			mountainPoints.get(i).setNewMountainID(9999);
+	    		 		mountainPoints.get(j).setNewMountainID(9999);	    		 	
    		 			}	    		 	
+   		 			
     		 //	}
    		 		peakFound = 1;
 		    	//if (!(outputPoints.contains(mountainPoints.get(i)))) {

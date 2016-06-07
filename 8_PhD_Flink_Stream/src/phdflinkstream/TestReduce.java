@@ -25,7 +25,7 @@ public void reduce(Iterable<Tuple8<Integer, Double, Integer,Double,Integer,Integ
 	
     for (Tuple8<Integer, Double, Integer,Double,Integer,Integer,Double,Integer> t : in) {
 	    mountainPoints.add (
-    		new PointMountain(t.f1,t.f6,t.f6,t.f3,t.f5,0,t.f7,-1,1,0,0));	   		    	   
+    		new PointMountain(t.f1,t.f6,t.f6,t.f3,t.f5,0,t.f7,-1,1,0,0,0));	   		    	   
     }
     Collections.sort(mountainPoints, new MountainPointCompare());		  		   
    	/*

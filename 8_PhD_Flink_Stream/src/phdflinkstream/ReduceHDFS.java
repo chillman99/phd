@@ -40,7 +40,7 @@ public class ReduceHDFS extends MapReduceBase implements Reducer<IntWritable, Te
 						Integer.parseInt(key.toString()),
 						//
 						Integer.parseInt(tempStr[6]),
-						-1,1,0,0));
+						-1,1,0,0,0));
  	   		    
 		   	}		   			    
 		    
