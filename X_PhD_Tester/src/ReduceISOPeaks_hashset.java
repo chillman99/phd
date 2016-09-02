@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.Set;
 
 public class ReduceISOPeaks_hashset {
@@ -50,14 +50,14 @@ public class ReduceISOPeaks_hashset {
 			
 		   if (outerPos != innerPos
 			//Match on WPM
-			   & (outerWPM-innerWPM >= 0.0 & outerWPM-innerWPM <= 1.000)
+			   && (outerWPM-innerWPM >= 0.0 & outerWPM-innerWPM <= 1.000)
 			//Match on RT Window
-			   & (outerMAXRT >= innerRT &  outerMINRT <= innerRT)
+			   && (outerMAXRT >= innerRT &  outerMINRT <= innerRT)
 			   //& (innerMINRT <= outerMAXRT & innerMAXRT >= outerMINRT)
 			//Match on Charge
-			   & outerCharge == innerCharge
+			   && outerCharge == innerCharge
 			//Match on Intensity			
-			   & (innerSUMI > (0.66667*outerSUMI))) {
+			   && (innerSUMI > (0.66667*outerSUMI))) {
 		   
 			 //Enhanced method similar using Standard Deviation of weighted 3d peak
 				   wpmDiff = Math.sqrt(

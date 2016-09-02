@@ -13,9 +13,8 @@ public class ReduceOverlaps {
 		int currSlopeInd = 0;
 		int prevSlopeInd = 0;
 		
-		
 		try {
-			for(int k=1; k <= outputPoints.size()-1; k++)    		    
+			for(int k=0; k <= outputPoints.size(); k++)    		    
 			{					
 				try{
 					currMountainID = outputPoints.get(k).getMountainID();						
@@ -76,6 +75,7 @@ public class ReduceOverlaps {
 			}
 
 		} catch (Exception e3) {
+			outputPoints.get(outputPoints.size()-1).setNewMountainID(newMountainID);
 				//end of array
 		}		
 

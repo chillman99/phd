@@ -23,19 +23,20 @@ public class ReduceFinalPeaks {
 		double maxI = 0.0; //3d_clean
 		double normI = 0.0;
 		int numPoints = 0;
+		int boundaryCheck = 0;			//Only add peaks that dont touch a partition boundary
 		
 		ArrayList<PointThreeD> threedDpoints = new ArrayList<PointThreeD>();
 		for(int i1=0; i1 <= outputPoints.size(); i1++)    		    
 		{ 
 			try{
-				charge = outputPoints.get(i1).getCharge();
+				//charge = outputPoints.get(i1).getCharge();
 				if (currMountainID != outputPoints.get(i1).getNewMountainID()) {
 					
-					if (currMountainID > -1) {
+					if (currMountainID > -1 && boundaryCheck == 0) {
 						weightedPeakRT = weightedPeakRT / sumIntensity;
 						weighted_avg_mz = weightedPeakMz / sumIntensity;
 						weightedMzSD = Math.sqrt(weightedMeanAvg/(((numPeaks-1)*sumIntensity)/numPeaks));
-						
+						//charge = outputPoints.get(i1).getCharge();
 						//build the final array of 3D points before Isotopic envelope detection
 						//Don't add mountains with a single peak
 						if(minRT != maxRT){
@@ -65,28 +66,27 @@ public class ReduceFinalPeaks {
 					weightedMzSD = 0.0;
 					weightedMeanAvg = 0.0;
 					weighted_avg_mz = 0.0;
+					boundaryCheck = 0;
 				}
 			} catch(IndexOutOfBoundsException IoB) {
 				break;
 			}
 			try{
 			if(startPeak == 1){
+				//Calculate WPM for peak
 				minRT = outputPoints.get(i1).getRetentionTime();
-				//Calc WPM for peak
 				peakCnt = i1;
 				WPMZ = 0;
-				maxI = 0.0; //3d_clean
+				maxI = 0.0; //3d_clean			
+				charge = outputPoints.get(i1).getCharge();
+				
 				//Work out the Weighted mz for this peak first
 				while (peakCnt < outputPoints.size() && currMountainID == outputPoints.get(peakCnt).getNewMountainID()) {
 					WPMZ = WPMZ + (outputPoints.get(peakCnt).getWpm() * outputPoints.get(peakCnt).getSmoothI());
 					sumIntensity = sumIntensity + outputPoints.get(peakCnt).getSmoothI();
-					//3d_clean
-					if (outputPoints.get(peakCnt).getSmoothI() > maxI){
-						maxI = outputPoints.get(peakCnt).getSmoothI();
-					}
-
-					peakCnt = peakCnt + 1;		
-					 	
+					if (outputPoints.get(peakCnt).getSmoothI() > maxI) maxI = outputPoints.get(peakCnt).getSmoothI();
+					//if(outputPoints.get(peakCnt).getBoundary() == 1) boundaryCheck = 1; 
+					peakCnt = peakCnt + 1;							
 				}
 				
 				WPMZ = WPMZ/sumIntensity;
@@ -107,7 +107,7 @@ public class ReduceFinalPeaks {
 				weightedMeanAvg = weightedMeanAvg + (outputPoints.get(i1).getSmoothI() * Math.pow((outputPoints.get(i1).getWpm()-WPMZ),2));
 				//add norm calc here sum / max 	
 				outputPoints.get(i1).setNormI((outputPoints.get(i1).getSmoothI() / maxI));
-
+				if(outputPoints.get(i1).getBoundary() == 1) boundaryCheck = 1;
 			} catch (Exception eCalcs){
 				//zero size Array?					
 			}
@@ -115,11 +115,12 @@ public class ReduceFinalPeaks {
 		
 		//add final 3d point to array
 		try {
+			
 			weightedPeakRT = weightedPeakRT / sumIntensity;
 			weighted_avg_mz = weightedPeakMz / sumIntensity;
 			weightedMzSD = Math.sqrt(weightedMeanAvg/(((numPeaks-1)*sumIntensity)/numPeaks));
-			//Don't add mountains with a single peak
-			if(minRT != maxRT){
+			//Don't add mountains with a single peak or boundary peaks
+			if(minRT != maxRT && boundaryCheck == 0){
 			threedDpoints.add (new PointThreeD(	currMountainID, //curveID,
 					weighted_avg_mz,
 					sumIntensity,

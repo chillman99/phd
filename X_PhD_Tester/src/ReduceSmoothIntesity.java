@@ -11,14 +11,8 @@ public class ReduceSmoothIntesity {
 		//Do we need to handle -1 curve?
 		int startpeaks = 0;
 		try {
-//		for(int j=startpeaks; j <= outputPoints.size()-2; j++)    		    
-//			{
-//				if (currMountainID == -1) break;
-//				j++;
-//				startpeaks = j;
-//			}
 		
-		for(int k=startpeaks; k <= outputPoints.size()-2; k++)    		    
+		for(int k=startpeaks; k <= outputPoints.size(); k++)    		    
 		{									
 			if (currMountainID != outputPoints.get(k).getMountainID()){
 				//first point for a curve					
@@ -27,14 +21,13 @@ public class ReduceSmoothIntesity {
 					outputPoints.get(k).setSmoothI((outputPoints.get(k).getSumI()
 													+outputPoints.get(k+1).getSumI())/2);
 				} catch(IndexOutOfBoundsException IoE) {
-				//reached end of object array
+				//reached end of object array					
 					break;
 				}
 			} else if (currMountainID != outputPoints.get(k+1).getMountainID()){
 				//last point for a curve
 				try{
-				outputPoints.get(k).setSmoothI((outputPoints.get(k).getSumI()
-                        +outputPoints.get(k-1).getSumI())/2);
+				outputPoints.get(k).setSmoothI((outputPoints.get(k).getSumI()+outputPoints.get(k-1).getSumI())/2);
 				} catch(IndexOutOfBoundsException IoE) {
 				//reached end of object array
 					break;
@@ -43,16 +36,16 @@ public class ReduceSmoothIntesity {
 				try{
 	 				outputPoints.get(k).setSmoothI((outputPoints.get(k-1).getSumI()
 	 												+outputPoints.get(k).getSumI()
-	 												+outputPoints.get(k+1).getSumI())/3);		 				
-	    			
+	 												+outputPoints.get(k+1).getSumI())/3);	
 				}	catch(IndexOutOfBoundsException IoE) {
-				//reached end of object array					
+				//reached end of object array	
 					break;
 				}
 			}
 		} 
 		} catch (Exception e2) {
 				//end of array
+			outputPoints.get(outputPoints.size()-1).setSmoothI(outputPoints.get(outputPoints.size()-2).getSmoothI());
 		}	
 
 	}
