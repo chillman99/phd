@@ -1,5 +1,7 @@
 package phd3dcore;
 
+import java.util.Comparator;
+
 public class PointMountain implements Comparable<PointMountain>{
         @Override
 	public int hashCode() {
@@ -57,19 +59,7 @@ public class PointMountain implements Comparable<PointMountain>{
 					) return true; 		
 			return false;
 		}
-/*
-	public boolean matches(Object obj) {
-		PointMountain other = (PointMountain) obj;
-		if (charge != other.charge) return false;
-		//Check mass inside the 7 ppm window	
-		if (this.charge * this.wpm <= ((other.wpm * other.charge) + (other.wpm * other.charge * 0.000007))
-			&& (this.charge * this.wpm >= (other.wpm * other.charge) - (other.wpm * other.charge * 0.000007))  
-			&& (this.retentionTime != other.retentionTime)
-			//&& this.charge == other.charge
-			) return true; 		
-			return false;
-		}	
-*/
+
 		private double wpm;
         private double sumI;
         private double smoothI;
@@ -208,4 +198,5 @@ public class PointMountain implements Comparable<PointMountain>{
 		}	
 		
 }
+
  
