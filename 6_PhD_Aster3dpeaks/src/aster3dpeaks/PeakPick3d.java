@@ -51,7 +51,7 @@ public class PeakPick3d implements PartitionFunction {
 		contract.setOutputInfo(new OutputInfo(outputColumns));
 		contract.complete();
 	}
-	
+	 
 	public void operateOnPartition(PartitionDefinition partitionDefinition, RowIterator inputIterator, RowEmitter outputEmitter)
 	{
 		ArrayList<PointMountain> mountainPoints = new ArrayList<PointMountain>();		    
@@ -84,10 +84,37 @@ public class PeakPick3d implements PartitionFunction {
 		}
 		
 		mountainPoints.addAll(inputPoints);
-         
+          
 		if (mountainPoints.size() > 5) {
 			//Now we can sort on by Retention Time followed by WPM using a custom compare from MountainPoint   		   
-		   	Collections.sort(mountainPoints, new MountainPointCompare());		  		   
+		   	Collections.sort(mountainPoints, new MountainPointCompare());	
+		   	
+		  //scan through the points and flag the first and last point in each RT
+			//if the 3d peak includes these it has touched the edge of the partition and will not
+			//be included in the output
+				int checked = 0;
+				double currRT = 0.0;			
+				currRT = mountainPoints.get(0).getRetentionTime();
+				mountainPoints.get(0).setBoundary(1);
+				int kk=1;
+				while (kk < mountainPoints.size()) 
+				{  
+					mountainPoints.get(kk).setBoundary(0);
+					if (checked == 1){
+						mountainPoints.get(kk-2).setBoundary(1);
+						checked = 0;
+					}
+					
+					if (currRT != mountainPoints.get(kk).getRetentionTime()){
+						mountainPoints.get(kk).setBoundary(1);
+						checked = 1;
+					} 
+					
+					currRT = mountainPoints.get(kk).getRetentionTime();
+					kk++;
+				}
+				mountainPoints.get(kk-1).setBoundary(1);
+				
 		   	//Create Arraylist of 3D peaks
 			//Instantiate Reduce3Dpeaks object and run the method
 		   	Pp3d3DPeaks run3dPeaks = new Pp3d3DPeaks();			
@@ -101,9 +128,8 @@ public class PeakPick3d implements PartitionFunction {
 		   	ArrayList<PointThreeD> threedDpoints = Pp3dFinalPeaks.calcMountains(outputPoints);	  
 			//ISO Peaks
 		   	ArrayList<PointISO> MonoISO = Pp3dISOPeaks.calcISO(threedDpoints, outputPoints);
-	
-		
-//		   	//Write out Final Peaks
+			
+	   	//Write out Final Peaks
 
 		   for (int k = 0; k<MonoISO.size();k++){
 				outputEmitter.addInt(MonoISO.get(k).getCharge());

@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.asterdata.sqlmride.core.project.ASTERDATA_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/Pp2dCore.jar"/>
-	<classpathentry kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/MapmzOutKey.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/localadmin/Documents/javalibs/commons-codec-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/Pp2dCore.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/MapmzOutKey.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

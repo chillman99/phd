@@ -3,7 +3,7 @@
 SELECT *
 FROM PeakPick2D(
       ON  (select scan, mslvl, rettime, mzarray, intensityarray
-			 from christest.data_pt2441s1fp1a1_new
+			 from scandata_100312
 			 where mslvl = 1
 			 limit 1)
 );

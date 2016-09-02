@@ -10,10 +10,9 @@ import phd2dcore.PointWeighted;
 import phd2dcore.Pp2dProcess;
 
 @SuppressWarnings("serial")
-public class StreamMap implements FlatMapFunction<String, String>  {
+public class StreamMapWindow implements FlatMapFunction<String, String>  {
 
-@Override
-	public void flatMap(String inputLine, Collector<String> out) throws IOException {
+public void flatMap(String inputLine, String out) throws IOException {
 		
 		String[] tempStr = inputLine.split("\t");		
 		String scNumber = tempStr[1];
@@ -28,19 +27,26 @@ public class StreamMap implements FlatMapFunction<String, String>  {
 		if (outputPoints.size()>0) {			
 			for (int i=0; i<outputPoints.size(); i++){
 				
-				out.collect(new String(outputPoints.get(i).getoutKey() + '\t' + 
+//Modified from MapReduce function to output results as a concatenated string				
+				out = new String(outputPoints.get(i).getoutKey() + '\t' + 
 			     		   Double.toString(outputPoints.get(i).getWpm()) + '\t' + 
 			     		   scLevel + '\t' +
 			     		   RT + '\t' +
 			     		   outputPoints.get(i).getCurveID() + '\t' +
 			     		   scNumber + '\t' + 
 			     		   outputPoints.get(i).getSumI() + '\t' + 
-			     		   Integer.toString(outputPoints.get(i).getCharge())));			
+			     		   Integer.toString(outputPoints.get(i).getCharge()));			
 			}	
 			
 		}	
 		
-	}	
+	}
+
+@Override
+public void flatMap(String arg0, Collector<String> arg1) throws Exception {
+	// TODO Auto-generated method stub
+	
+}	
 
 }
 
