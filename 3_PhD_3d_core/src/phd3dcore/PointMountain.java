@@ -1,7 +1,5 @@
 package phd3dcore;
 
-import java.util.Comparator;
-
 public class PointMountain implements Comparable<PointMountain>{
         @Override
 	public int hashCode() {
