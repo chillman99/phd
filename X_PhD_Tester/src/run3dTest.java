@@ -226,33 +226,33 @@ System.out.println("Done 3d peaks:" + "\t" + System.currentTimeMillis());
 System.out.println("Start Overlaps:" + "\t" + System.currentTimeMillis());
 		   	ReduceOverlaps.calcOverlaps(outputPoints);	   	
 System.out.println("Done Overlaps:" + "\t" + System.currentTimeMillis());
-
-		   	writer.write("******************************CalcOverlaps******************************");
-		   	writer.newLine();
-		   	for (int k = 0; k<outputPoints.size();k++){
-		   		try {					
-		   			writer.write( 
-		   					  outputPoints.get(k).getBoundary() + "\t" +
-							  outputPoints.get(k).getWpm() + "\t" + 
-							  outputPoints.get(k).getScanOrder() + "\t" +
-							  outputPoints.get(k).getScanNumber() + "\t" +							  
-							  outputPoints.get(k).getRetentionTime() + "\t" +
-							  outputPoints.get(k).getSumI() + "\t" +
-							  outputPoints.get(k).getSmoothI() + "\t" +					   		  
-					   		  outputPoints.get(k).getCharge()  + "\t" +
-					 		  outputPoints.get(k).getMountainID() + "\t" +
-					 		  outputPoints.get(k).getNewMountainID() + "\t" +
-					 		  outputPoints.get(k).getMass());					 
-					 writer.newLine();
-					 writer.flush();			 
-		    }catch (IOException e) {
-				e.printStackTrace();
-			}
-	
-		   	}
-		   	writer.write("******************************CalcOverlaps******************************");
-		   	writer.newLine();
-		   	
+//
+//		   	writer.write("******************************CalcOverlaps******************************");
+//		   	writer.newLine();
+//		   	for (int k = 0; k<outputPoints.size();k++){
+//		   		try {					
+//		   			writer.write( 
+//		   					  outputPoints.get(k).getBoundary() + "\t" +
+//							  outputPoints.get(k).getWpm() + "\t" + 
+//							  outputPoints.get(k).getScanOrder() + "\t" +
+//							  outputPoints.get(k).getScanNumber() + "\t" +							  
+//							  outputPoints.get(k).getRetentionTime() + "\t" +
+//							  outputPoints.get(k).getSumI() + "\t" +
+//							  outputPoints.get(k).getSmoothI() + "\t" +					   		  
+//					   		  outputPoints.get(k).getCharge()  + "\t" +
+//					 		  outputPoints.get(k).getMountainID() + "\t" +
+//					 		  outputPoints.get(k).getNewMountainID() + "\t" +
+//					 		  outputPoints.get(k).getMass());					 
+//					 writer.newLine();
+//					 writer.flush();			 
+//		    }catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//	
+//		   	}
+//		   	writer.write("******************************CalcOverlaps******************************");
+//		   	writer.newLine();
+//		   	
 		   	//Create final 3D peaks and set Mountain ID		   	
 System.out.println("Start final 3d:" + "\t" + System.currentTimeMillis());
 		   	ArrayList<PointThreeD> threedDpoints = ReduceFinalPeaks.calcMountains(outputPoints);
@@ -284,25 +284,25 @@ Collections.sort(threedDpoints, new ThreeDPointCompare());
 System.out.println("Start ISOPeaks:" + "\t" + System.currentTimeMillis());
 		   	ArrayList<PointISO> MonoISO = ReduceISOPeaks.calcISO(threedDpoints, outputPoints);
 System.out.println("Done ISOPeaks:" + "\t" + System.currentTimeMillis());
-		   	//Write out Peaks
-writer.write("******************************ISOPeaks******************************");
-writer.newLine();
-for (int k1 = 0; k1<MonoISO.size();k1++){
-	try {					
-		 writer.write( (MonoISO.get(k1).getEnvelopeID() + "\t" +						
-					MonoISO.get(k1).getLevelID() + "\t" +
-					MonoISO.get(k1).getCharge() + "\t" +
-					MonoISO.get(k1).getSumI() + "\t" +
-					MonoISO.get(k1).getWpm() + "\t" +
-					MonoISO.get(k1).getWpRT()));					 
-		 writer.newLine();
-		 writer.flush();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-	}
-writer.write("******************************ISOPeaks******************************");
-writer.newLine();
+//		   	//Write out Peaks
+//writer.write("******************************ISOPeaks******************************");
+//writer.newLine();
+//for (int k1 = 0; k1<MonoISO.size();k1++){
+//	try {					
+//		 writer.write( (MonoISO.get(k1).getEnvelopeID() + "\t" +						
+//					MonoISO.get(k1).getLevelID() + "\t" +
+//					MonoISO.get(k1).getCharge() + "\t" +
+//					MonoISO.get(k1).getSumI() + "\t" +
+//					MonoISO.get(k1).getWpm() + "\t" +
+//					MonoISO.get(k1).getWpRT()));					 
+//		 writer.newLine();
+//		 writer.flush();
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//	}
+//	}
+//writer.write("******************************ISOPeaks******************************");
+//writer.newLine();
 
 //		   for (int k1 = 0; k1<MonoISO.size();k1++){
 		   //for (int k = 0; k<outputPoints.size();k++){
