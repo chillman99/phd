@@ -28,32 +28,30 @@ public class ReduceISOPeaks {
 	
 	ArrayList<PointISO> ISOpoints = new ArrayList<PointISO>();
 	ArrayList<PointISO> MonoISO = new ArrayList<PointISO>();
-	//int oSize = outputPoints.size()-1;
-	int oSize = threedDpoints.size()-1;
-	for(int outerPos=0; outerPos <= oSize; outerPos++){		
+	int tSize = threedDpoints.size()-1;
+	for(int outerPos=0; outerPos <= tSize; outerPos++){		
 		   outerWPM=threedDpoints.get(outerPos).getWpm();
 		   outerSUMI=threedDpoints.get(outerPos).getSumI();
 		   outerMAXRT=threedDpoints.get(outerPos).getMaxRT();
 		   outerMINRT=threedDpoints.get(outerPos).getMinRT();
 		   outerCharge=threedDpoints.get(outerPos).getCharge();
-
-	   for(int innerPos=0; innerPos < oSize; innerPos++){	
+   
+	   for(int innerPos=0; innerPos <= tSize; innerPos++){	
 			   innerWPM=threedDpoints.get(innerPos).getWpm();
 			   innerSUMI=threedDpoints.get(innerPos).getSumI();
 			   innerRT=threedDpoints.get(innerPos).getWpRT();
 			   innerCharge=threedDpoints.get(innerPos).getCharge();
-				   		   		 
-		   
+
 		   if (outerPos != innerPos
 			//Match on WPM
-			   && (outerWPM-innerWPM >= 0.0 & outerWPM-innerWPM <= 1.000)
+			   & (outerWPM-innerWPM >= 0.0 & outerWPM-innerWPM <= 1.000)
 			//Match on RT Window
-			   && (outerMAXRT >= innerRT &  outerMINRT <= innerRT)
+			   & (outerMAXRT >= innerRT &  outerMINRT <= innerRT)
 			   //& (innerMINRT <= outerMAXRT & innerMAXRT >= outerMINRT)
 			//Match on Charge
-			   && outerCharge == innerCharge
+			   & outerCharge == innerCharge
 			//Match on Intensity			
-			   && (innerSUMI > (0.66667*outerSUMI))) {
+			   & (innerSUMI > (0.66667*outerSUMI))) {
 		   
 			 //Enhanced method similar using Standard Deviation of weighted 3d peak
 				   wpmDiff = Math.sqrt(
@@ -77,7 +75,7 @@ public class ReduceISOPeaks {
 					   outerCurve = threedDpoints.get(outerPos).getCurveID();
 					   
 					   //Populate checkPoints Arraylist with the data from the peak pairs
-//need to check osize variable here					   
+					   int oSize = outputPoints.size()-1;
 					   for(int aPos=0; aPos <= oSize; aPos++){	
 						   if (outputPoints.get(aPos).getNewMountainID() == innerCurve){									   
 							    checkPoints.add(new PointCheck(
@@ -87,20 +85,23 @@ public class ReduceISOPeaks {
 							        outputPoints.get(aPos).getNewMountainID(),
 							        outputPoints.get(aPos).getNormI(),
 							        0.0,0.0,0,0,0.0
-						        ));						
-						   }						   
+						        ));
+						
+						   }
+						   
 					   }
-					   	
+					   
 					   int cSize = checkPoints.size();
-					   for(int aPos=0; aPos <= cSize; aPos++){	
-						   if (outputPoints.get(aPos).getNewMountainID() == outerCurve){
+					   for(int aPos=0; aPos <= oSize; aPos++){	
+						   if (outputPoints.get(aPos).getNewMountainID() == outerCurve && tempCntr < cSize){
 							        checkPoints.get(tempCntr).setWpmB(outputPoints.get(aPos).getWpm());
 							        checkPoints.get(tempCntr).setSmoothB(outputPoints.get(aPos).getSmoothI());
 							        checkPoints.get(tempCntr).setChargeB(outputPoints.get(aPos).getCharge());
 							        checkPoints.get(tempCntr).setNewMountainIDB(outputPoints.get(aPos).getNewMountainID());
 							        checkPoints.get(tempCntr).setNormB(outputPoints.get(aPos).getNormI());  
 							    tempCntr++;
-						   }							  
+						   }
+						   
 					   }
 					   
 					   double normAnormB = 0.00;
@@ -108,7 +109,7 @@ public class ReduceISOPeaks {
 					   double normBnormB = 0.00;
 					   double corrCoeff = 0.00;
 					   
-					   for(int aPos=0; aPos <= checkPoints.size()-1; aPos++){	
+					   for(int aPos=0; aPos <= cSize-1; aPos++){	
 						   normAnormB = normAnormB + (checkPoints.get(aPos).getNormA() * checkPoints.get(aPos).getNormB());
 						   normAnormA = normAnormA + (checkPoints.get(aPos).getNormA() * checkPoints.get(aPos).getNormA());
 						   normBnormB = normBnormB + (checkPoints.get(aPos).getNormB() * checkPoints.get(aPos).getNormB());							   
@@ -146,9 +147,13 @@ public class ReduceISOPeaks {
 								  double level1Rt = ISOpoints.get(holdIndex).getWpRT();
 								  int level1Charge = ISOpoints.get(holdIndex).getCharge();
 								  
+								  try {
 									  for (int i = holdIndex;i<ISOpoints.size();i++){
 										  sumSumI = sumSumI + ISOpoints.get(i).getSumI();
 									  }
+								  } catch (Exception e) {
+									  //end of array
+								  }
 								  
 								//Add mono peak 
 								  MonoISO.add(new PointISO(
@@ -190,12 +195,12 @@ public class ReduceISOPeaks {
 				   
 				   }
 						
-			   }	
-			   match = 0;		   
-		   }			
-		   //System.out.println("Outer Loop:" + "\t" + System.currentTimeMillis()  + "\t" + outerWPM  + "\t" + outerMAXRT  + "\t" + outerCharge);
+		   		}
+		   		match = 0;		   
+	   		}			
+	   
 		}
-	return MonoISO;
+		return MonoISO;
 	}
 
 }
