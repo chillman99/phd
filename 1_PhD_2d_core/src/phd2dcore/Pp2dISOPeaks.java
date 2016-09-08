@@ -40,8 +40,8 @@ public class Pp2dISOPeaks {
 					   && WeightedArrayWPM-innerWPM >= 0.0 
 					   && WeightedArrayWPM-innerWPM <= 1.000
 					   //&& WeightedArrayRT==innerRT
-					   //&& (innerMAXI > (0.66667*WeightedArrayMAXI))) {
-					   && (innerMAXI > (0.5*WeightedArrayMAXI))) {
+					   && (innerMAXI > (0.66667*WeightedArrayMAXI))) {
+					   //&& (innerMAXI > (0.5*WeightedArrayMAXI))) {
 						   wpmDiff = WeightedArrayWPM-innerWPM;
 						   //calculate the Ion charge based on the distance between isotopic peaks
 						   if ((wpmDiff > 1.0-0.0109135) && (wpmDiff < 1.0 + 0.0109135)){
