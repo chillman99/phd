@@ -67,7 +67,7 @@ public final class PeakPick2D implements RowFunction {
 		    mzString = inputIterator.getStringAt(3);
 			intensityString  = inputIterator.getStringAt(4);
 					
-			//Populate outputPoints with the isotopic centroided peaks
+			//Populate outputPoints with the isotopic centroided peaks  
 			ArrayList<PointWeighted> outputPoints = Pp2dProcess.process(scNumber, scLevel, mzString, intensityString, RT);
 			
 			if (outputPoints.size()>0) {

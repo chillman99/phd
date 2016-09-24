@@ -100,15 +100,12 @@ public class run2dTest  {
 								   		));
 							writer.newLine();							
 							writer.flush();
-							
-							System.out.println(scNumber + "\t" +
-							   		  scLevel + "\t" +
-							   		  RT + "\t" +
-							   		  outputPoints.get(k).getCurveID() + "\t" +
-							   		  outputPoints.get(k).getWpm() + "\t" +								   		  
-									  outputPoints.get(k).getSumI() + "\t" +
-							   		  outputPoints.get(k).getCharge() 
-							   		);
+//Write out iso peaks to console							
+//							System.out.println(
+//							   		  outputPoints.get(k).getWpm() + "\t" +								   		  
+//									  outputPoints.get(k).getSumI() + "\t" +
+//							   		  outputPoints.get(k).getCharge() 
+//							   		);
 							
 						} catch (IOException e) {
 							e.printStackTrace();

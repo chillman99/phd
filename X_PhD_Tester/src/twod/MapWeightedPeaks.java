@@ -8,8 +8,9 @@ public class MapWeightedPeaks {
 	//**************** Start Main Section of Code for 2D Peak Picking *********************			
 	int curveCount=0;				//Temp Counter while processing curvearray
 	int count=0;					//Temp Counter while construction curvearray
-	double currIntensity=0;			//Current intensity value
-	double lastIntensity=0;			//Intensity value of previous input row
+	int badCurve = 0;				//flag to ignore bad curves
+	double currIntensity=0.0;			//Current intensity value
+	double lastIntensity=0.0;			//Intensity value of previous input row
 	double PI=0;					//Intensity value of previous row in current curve
 	double PI2=0;					//Intensity value of previous row but 1 in current curve
 	int overlapFlag = 0;			//indicates that the current curve has overlapping peaks
@@ -24,9 +25,9 @@ public class MapWeightedPeaks {
 	double sumMZByIntensity=0;		//sum of (MZ * intensity) for current curve
 	double intensityThreshold=0;	//intensity threshold for current curve - default 10% maxMZ 
 	double[][] curveArray = new double[2][150];						//array to hold current curve
-	ArrayList<PointWeighted> WeightedPointsTemp = new ArrayList<PointWeighted>();	//temparray to hold point objects
-	int curveID=0;  				//Counter for current curve	
-	
+	ArrayList<PointWeighted> WeightedPointsTemp = new ArrayList<PointWeighted>();	//temp array to hold point objects
+	int curveID=0;  				//Counter for current curve
+			
 	int masterCount = 1;
 	while ( masterCount < intensityData.length)
 	try {	
@@ -46,13 +47,12 @@ public class MapWeightedPeaks {
 			    	
     	maxIntensity=0;		    	
     	currIntensity=intensityData[masterCount];
-    		
+    	
 		//Find start of Curve, lastintensity is 0 
     	//or previous lastintensity is higher than lastintensity - overlapping peaks (double peak curve)	    	
-    	if (currIntensity > 0 && lastIntensity == 0 || overlapFlag==1){
-			//Populate Temp Array with Curve points and find maxIntensity to derive threshold
-    		
-			while (currIntensity > 0){															
+    	if ((double) currIntensity > (double) 00 && lastIntensity == 0 || overlapFlag==1){
+			//Populate Temp Array with Curve points and find maxIntensity to derive threshold    		
+			while ((double) currIntensity > (double) 0){															
 				if(maxIntensity < currIntensity)
 						maxIntensity=currIntensity;
 				
@@ -60,7 +60,7 @@ public class MapWeightedPeaks {
 					overlapFlag=0;
 					prevOverlapFlag=1;
 					PI = overlapIntensity;
-					currIntensity=intensityData[masterCount];						
+					currIntensity=intensityData[masterCount];											
 				}
 				//Need to add back in the mz and intensity from the end of the previous overlapping peak
 				if (prevOverlapFlag==1){
@@ -68,7 +68,7 @@ public class MapWeightedPeaks {
 					curveArray[0][count-1]=mzData[masterCount-1];
 					curveArray[1][count-1]=intensityData[masterCount-1];
 					PI = overlapIntensity;
-					currIntensity=intensityData[masterCount];						
+					currIntensity=intensityData[masterCount];					
 				}		
 				
 				curveArray[0][count]=mzData[masterCount];
@@ -88,7 +88,8 @@ public class MapWeightedPeaks {
 					overlapFlag=1;
 					overlapIntensity=intensityData[masterCount];
 					masterCount--;
-					curveArray[1][count-1]=0;						
+					curveArray[1][count-1]=0;	
+					//System.out.println("Overlap " + mzData[masterCount] + "\t" + intensityData[masterCount]);
 					break;
 				}	
 			}
@@ -97,9 +98,8 @@ public class MapWeightedPeaks {
 			PI=0;
 			PI2=0;
 			//Initialize Temporary Variables
-			//Removed in Alan's latest code version
-			//intensityThreshold = (double) (maxIntensity*0.10000000);
-			intensityThreshold = (double) 0;
+			intensityThreshold = (double) (maxIntensity*0.10000000);
+			//intensityThreshold = (double) 0;
 			curveCount=0;
 			maxMZ=0;
 			minMZ=0;
@@ -109,29 +109,39 @@ public class MapWeightedPeaks {
 			sumMZ=0;				
 			
 			//Process Temp Array to create intermediate metrics
-			while (curveArray[1][curveCount] > 0){
-				if (curveArray[1][curveCount] > intensityThreshold){
-					if (maxMZ < curveArray[0][curveCount]){
-						maxMZ=curveArray[0][curveCount];
+			if(curveArray[1][curveCount] > 0) {
+				while (curveArray[1][curveCount] > 0){							
+					//Handle cases where peaks do not have a good start point
+					if (curveCount == 0) 
+						{if (curveArray[1][curveCount] > curveArray[1][curveCount+1]) badCurve = 1;								
+						}					
+					
+					if (curveArray[1][curveCount] > intensityThreshold){
+						if (maxMZ < curveArray[0][curveCount]){
+							maxMZ=curveArray[0][curveCount];
+						}
+						if (minIntensity > curveArray[1][curveCount] || minIntensity == 0){
+							minIntensity=curveArray[1][curveCount];
+						}
+						if (minMZ > curveArray[0][curveCount] || minMZ == 0){
+							minMZ=curveArray[0][curveCount];
+						}
+						sumIntensity=sumIntensity+curveArray[1][curveCount];
+						sumMZ=sumMZ+curveArray[0][curveCount];
+						sumMZByIntensity=sumMZByIntensity+(curveArray[0][curveCount]*curveArray[1][curveCount]);
+
 					}
-					if (minIntensity > curveArray[1][curveCount] || minIntensity == 0){
-						minIntensity=curveArray[1][curveCount];
-					}
-					if (minMZ > curveArray[0][curveCount] || minMZ == 0){
-						minMZ=curveArray[0][curveCount];
-					}
-					sumIntensity=sumIntensity+curveArray[1][curveCount];
-					sumMZ=sumMZ+curveArray[0][curveCount];
-					sumMZByIntensity=sumMZByIntensity+(curveArray[0][curveCount]*curveArray[1][curveCount]);
-											
+					curveCount++;
 				}
-				curveCount++;
+				//Add Results to WeightedArray for use by later ISO process
+				//No Single point curves
+				if (curveCount > 1 && badCurve != 1){
+					WeightedPointsTemp.add (new PointWeighted(curveID, sumMZByIntensity/sumIntensity, sumIntensity, maxIntensity, 0, 0, -1));
+				} 
+				badCurve =0;
+				curveID++;
 			}
-			//Add Results to WeightedArray for use by later ISO process
-			
-			WeightedPointsTemp.add (new PointWeighted(curveID, sumMZByIntensity/sumIntensity, sumIntensity, maxIntensity, 0, 0, -1));			
-			curveID++;
-    	}																																			
+    	}	//else  System.out.println("Zero Intensity " + mzData[masterCount] + "\t" + intensityData[masterCount]); 																																		
     	masterCount ++;		    																															
 	} catch (Exception e) {e.printStackTrace();}
 	

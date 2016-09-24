@@ -15,10 +15,28 @@ public class MapProcess {
 		//decode the Base64 strings and populate float arrays with the data	
 		float[] mzData = MapUtils.get64BitStringToFloat(mzString);				
 		float[] intensityData = MapUtils.get32BitStringToFloat(intensityString);		
-				
+
+//Write out raw data for QC		
+//for (int i=0; i<mzData.length;i++){
+//	
+//		System.out.println(scNumber + "\t" +
+// 		  mzData[i] + "\t" +
+// 		 intensityData[i] 
+// 		);
+//}		
 		//Populate arraylist with profile data
 		ArrayList<PointWeighted> WeightedPointsTemp = MapWeightedPeaks.WeightedPeaks(mzData, intensityData);
 		ArrayList<PointWeighted> outputPoints = new ArrayList<PointWeighted>();
+
+//Write out weighted peaks data for QC		
+for (int i=0; i<WeightedPointsTemp.size();i++){
+	
+				System.out.println(
+						WeightedPointsTemp.get(i).getWpm()  + "\t" +
+						WeightedPointsTemp.get(i).getSumI()
+					    
+		 		);
+		}		
 		
 		//Isotopic peak detection 
 		if (Integer.parseInt(scLevel) == 1) {
@@ -72,7 +90,6 @@ public class MapProcess {
 			}
 		
 		}  //move to next scan 
-		 
 		return outputPoints;
 	}
 	
