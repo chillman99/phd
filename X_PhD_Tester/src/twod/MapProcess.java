@@ -25,37 +25,28 @@ public class MapProcess {
 // 		);
 //}		
 		//Populate arraylist with profile data
-		ArrayList<PointWeighted> WeightedPointsTemp = MapWeightedPeaks.WeightedPeaks(mzData, intensityData);
+		ArrayList<PointWeighted> WeightedPointsTemp = MapWeightedPeaks.WeightedPeaks(mzData, intensityData);		
 		ArrayList<PointWeighted> outputPoints = new ArrayList<PointWeighted>();
 
 //Write out weighted peaks data for QC		
-for (int i=0; i<WeightedPointsTemp.size();i++){
-	
-				System.out.println(
-						WeightedPointsTemp.get(i).getWpm()  + "\t" +
-						WeightedPointsTemp.get(i).getSumI()
-					    
-		 		);
-		}		
-		
+//for (int i=0; i<WeightedPointsTemp.size();i++){
+//	
+//				System.out.println(
+//						WeightedPointsTemp.get(i).getWpm()  + "\t" +
+//						WeightedPointsTemp.get(i).getSumI()
+//					    
+//		 		);
+//		}		
+//		
 		//Isotopic peak detection 
 		if (Integer.parseInt(scLevel) == 1) {
 			ArrayList<PointWeighted> WeightedPoints = MapISOPeaks.ISOPeaks(WeightedPointsTemp);	
-	    Collections.sort(WeightedPoints, new WeightedPointCompare());
+	        Collections.sort(WeightedPoints, new WeightedPointCompare());
 			
-		//De-duplicate ISO array and Output to Reducer
-		int dupeFlag = 0; //Flag to show which rows are duplicates	
-		for(int i=0; i <= WeightedPoints.size()-1; i++) 
-		{	
-			if ( dupeFlag == i && i != 0 )  
-			{   //This point is a duplicate so reset the flag and move to next row
-				dupeFlag = 0;
-			}
-			else //Output data for this point
-				{
+			for(int i=0; i <= WeightedPoints.size()-1; i++) 
+			{	
 				WeightedPoints.get(i).setoutKey(MapmzOutKey.getKey(WeightedPoints.get(i).getWpm()));
-				//if( (WeightedPoints[i].getWpm() >=372.00 ) && (WeightedPoints[i].getWpm() < 374.00)){outKey = 0;}
-				
+				//if( (WeightedPoints[i].getWpm() >=372.00 ) && (WeightedPoints[i].getWpm() < 374.00)){outKey = 0;}				
 				if (WeightedPoints.get(i).getCharge() > 1					
 					//Debugging, force single reducer with small range of points	
 					//&& (WeightedPoints[i].getWpm() >=372.00 ) && (WeightedPoints[i].getWpm() < 374.00)
@@ -63,31 +54,8 @@ for (int i=0; i<WeightedPointsTemp.size();i++){
 				{	
 					outputPoints.add(WeightedPoints.get(i));										    			
 				}
-					//check for duplicates in the next 3 points and set dupeFlag if found
-					try{
-						if(WeightedPoints.get(i).equals(WeightedPoints.get(i+1))) {
-							   dupeFlag = i+1;
-						   } else
-						   try{
-							   if(WeightedPoints.get(i).equals(WeightedPoints.get(i+2))){
-								   dupeFlag = i+2;}
-								   else try{
-									   if(WeightedPoints.get(i).equals(WeightedPoints.get(i+3))) {
-										   dupeFlag = i+3;
-									   }
-							   		} catch (Exception e){
-							   			//almost the last object
-							   		}
-							   } catch (Exception e){
-								   //nearly the end of the line
-							   }
-					} catch (Exception e) {
-						//the actual end of the line						
-					}
-						
-				}
 
-			}
+			}	
 		
 		}  //move to next scan 
 		return outputPoints;

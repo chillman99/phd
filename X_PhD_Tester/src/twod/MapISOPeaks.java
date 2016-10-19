@@ -1,7 +1,8 @@
 package twod;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MapISOPeaks {
 	
@@ -19,14 +20,13 @@ public class MapISOPeaks {
 		double innerSUMI=0.0;
 		int charge = 0;
 		double wpmDiff = 0.00;		
-		ArrayList<PointWeighted> WeightedPoints = new ArrayList<PointWeighted>();
+		Set<PointWeighted> WeightedPoints = new HashSet<PointWeighted>();	
 		
 		while (WeightedArrayPos <= WeightedPointsISO.size()-1){
 			
 		   WeightedArrayWPM=WeightedPointsISO.get(WeightedArrayPos).getWpm();
 		   WeightedArrayMAXI=WeightedPointsISO.get(WeightedArrayPos).getMaxI();
 		   WeightedArraySUMI=WeightedPointsISO.get(WeightedArrayPos).getSumI();
-		   //inner curveid is always less than outer curveid
 		   innerPos=WeightedArrayPos-1;
 		   
 		   while (innerPos >= 0){				   
@@ -37,9 +37,10 @@ public class MapISOPeaks {
 				   && WeightedArrayWPM-innerWPM >= 0.0 
 				   && WeightedArrayWPM-innerWPM <= 1.000
 				   //&& WeightedArrayRT==innerRT
-				   //Changed to 50% to match Spectracus code
-				   //&& (innerMAXI > (0.66667*WeightedArrayMAXI))) {
-				   && (innerMAXI > (0.5*WeightedArrayMAXI))) {
+				   //Try Changing to 50% to match TD output - put back to 0.66667
+				   //&& (innerMAXI > (0.5*WeightedArrayMAXI))) {
+				   && (innerMAXI > (0.66667*WeightedArrayMAXI))) {							
+
 					   wpmDiff = WeightedArrayWPM-innerWPM;
 					  					  
 					   if ((wpmDiff > 1.0-0.0109135) && (wpmDiff < 1.0 + 0.0109135)){
@@ -59,8 +60,8 @@ public class MapISOPeaks {
 					   					
 					   if( charge > 1) {
 							//Collect the ISO peaks in an array if they have a charge greater than 1
-						    WeightedPoints.add (new PointWeighted(WeightedArrayPos,innerWPM,innerSUMI,innerMAXI,charge,0,-1));
-						    WeightedPoints.add (new PointWeighted(WeightedArrayPos,WeightedArrayWPM,WeightedArraySUMI,WeightedArrayMAXI,charge,0,-1));
+							WeightedPoints.add (new PointWeighted(0,innerWPM,innerSUMI,innerMAXI,charge,0,-1));
+							WeightedPoints.add (new PointWeighted(0,WeightedArrayWPM,WeightedArraySUMI,WeightedArrayMAXI,charge,0,-1));						    
 							charge = 0;
 					   }
 							
@@ -69,10 +70,16 @@ public class MapISOPeaks {
 		   }			   			   
 		   WeightedArrayPos++;
 		}
-
-		Collections.sort(WeightedPointsISO, new WeightedPointCompare());
-
-		return WeightedPoints;
 		
+		//Complete so de-duplicate and add hashlist contents to arraylist, sort and return
+		ArrayList<PointWeighted> outputPoints = new ArrayList<PointWeighted>();		
+		for (PointWeighted objLoop : WeightedPoints ) {    		    		
+			if (!outputPoints.contains(objLoop)) {
+				outputPoints.add(objLoop);			
+			}
+			
+		}	
+		return outputPoints;		
 	}
+	
 }

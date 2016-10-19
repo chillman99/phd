@@ -109,7 +109,6 @@ public class PointWeighted implements Comparable<PointWeighted>{
        
 }
 
-//comparator class to sort on MountainID, followed by charge, followed by retention time followed by WPM
 class WeightedPointCompare implements Comparator<PointWeighted>{
 		public int compare(PointWeighted mp1, PointWeighted mp2) { 			
 		int value1 = Double.compare(mp1.getCurveID(), mp2.getCurveID());
