@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MapISOPeaks {
+public class MapISOPeaks_original {
 	
 	public static ArrayList<PointWeighted> ISOPeaks(ArrayList<PointWeighted> WeightedPointsISO) {
 		
@@ -19,7 +19,6 @@ public class MapISOPeaks {
 		double WeightedArraySUMI=0.0;
 		double innerSUMI=0.0;
 		int charge = 0;
-		int curveID = 0;
 		double wpmDiff = 0.00;		
 		Set<PointWeighted> WeightedPoints = new HashSet<PointWeighted>();	
 		
@@ -61,8 +60,8 @@ public class MapISOPeaks {
 					   					
 					   if( charge > 1) {
 							//Collect the ISO peaks in an array if they have a charge greater than 1
-							WeightedPoints.add (new PointWeighted(curveID,innerWPM,innerSUMI,innerMAXI,charge,0,-1));
-							WeightedPoints.add (new PointWeighted(curveID,WeightedArrayWPM,WeightedArraySUMI,WeightedArrayMAXI,charge,0,-1));						    
+							WeightedPoints.add (new PointWeighted(0,innerWPM,innerSUMI,innerMAXI,charge,0,-1));
+							WeightedPoints.add (new PointWeighted(0,WeightedArrayWPM,WeightedArraySUMI,WeightedArrayMAXI,charge,0,-1));						    
 							charge = 0;
 					   }
 							
@@ -70,7 +69,6 @@ public class MapISOPeaks {
 			   innerPos--;					   
 		   }			   			   
 		   WeightedArrayPos++;
-		   curveID++;
 		}
 		
 		//Complete so de-duplicate and add hashlist contents to arraylist, sort and return

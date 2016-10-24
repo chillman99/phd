@@ -17,10 +17,10 @@ import com.asterdata.ncluster.sqlmr.data.SqlType;
 
 import phd3dcore.*;
 
-public class PeakPick3d implements PartitionFunction {
+public class PeakPick3D implements PartitionFunction {
 	public static String inputFile = new String();
 	
-	public PeakPick3d(RuntimeContract contract) {
+	public PeakPick3D(RuntimeContract contract) {
 
 		List<SqlType> expectedInputTypes = new ArrayList<SqlType>();
 		expectedInputTypes.add(SqlType.getType("integer"));			//pkey

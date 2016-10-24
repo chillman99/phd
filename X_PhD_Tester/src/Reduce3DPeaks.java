@@ -25,6 +25,7 @@ public class Reduce3DPeaks {
 	    
 	    //Outer Loop	    
 		while (i <= endLoop-2) //need to check next two scans, -2 to avoid array out of bounds error
+	    //while (i <= 5000) //need to check next two scans, -2 to avoid array out of bounds error
 	    {  			 
 			mountainID++;
 			//flag this point as having been checked for matches
@@ -41,6 +42,19 @@ public class Reduce3DPeaks {
     		   	j++;
 				} nextRTIndex = j;
 			}
+			
+			//Potential speed up, move j to the WPM just before WPM for i
+			while ( mountainPoints.get(j).getWpm() < mountainPoints.get(i).getWpm() 
+					&& j <= endLoop-2 
+					&& mountainPoints.get(j).getScanNumber() == currScan) {				
+    		   	j++;
+				} nextRTIndex = j;
+			
+//System.out.println("Outside: "
+//				+ "outerScan: " + mountainPoints.get(i).getScanNumber() 
+//				+ " outerWPM : " + mountainPoints.get(i).getWpm() 
+//		        + " innerScan: " + mountainPoints.get(j).getScanNumber()
+//		        + " innerWPM : " + mountainPoints.get(j).getWpm());
 
 			currRT = mountainPoints.get(j).getRetentionTime();
 			//check this RT is within 30 seconds window from first point of 3D curve	
@@ -108,11 +122,34 @@ public class Reduce3DPeaks {
 		double iMass = iCharge * iWpm;
 		int chargeMatch = 0;
 		
-		while (peakFound == 0 && j <= endLoop-2 && mountainPoints.get(j).getRetentionTime() == currRT) 
+//System.out.println("Inside1: "
+//		+ "outerScan: " + mountainPoints.get(i).getScanNumber() 
+//		+ " outerWPM : " + mountainPoints.get(i).getWpm() 
+//        + " innerScan: " + mountainPoints.get(j).getScanNumber()
+//        + " innerWPM : " + mountainPoints.get(j).getWpm());
+		
+		while (peakFound == 0 
+				&& j <= endLoop-2 
+				&& mountainPoints.get(j).getRetentionTime() == currRT  
+				&& mountainPoints.get(j).getWpm() < (mountainPoints.get(i).getWpm() + 0.05)
+//Investigate potential speed up here 				
+				) 
 		{
+						
 			int jCharge = mountainPoints.get(j).getCharge();
 			double jMass = jCharge * mountainPoints.get(j).getWpm();	
 			
+//			if(mountainPoints.get(j).getWpm() > (mountainPoints.get(i).getWpm() + 0.05)){
+//				j++;
+//				continue;
+//			}
+			
+//System.out.println("Inside2: "
+//		+ "outerScan: " + mountainPoints.get(i).getScanNumber() 
+//		+ " outerWPM : " + mountainPoints.get(i).getWpm() 
+//        + " innerScan: " + mountainPoints.get(j).getScanNumber()
+//        + " innerWPM : " + mountainPoints.get(j).getWpm());
+//			
 			if (iCharge != jCharge && chargeMatch == 1) break;
 			else if (iCharge != jCharge
 					|| (iMass < (jMass - (jMass * 0.000007)))
@@ -167,6 +204,13 @@ public class Reduce3DPeaks {
 		    	break;
 			}
 			j++;			
+		}
+		//Make sure we are at the end of this scan in case we skipped the main loop when j > i+1
+		while (peakFound == 0 
+				&& j <= endLoop-2 
+				&& mountainPoints.get(j).getRetentionTime() == currRT  
+				) {
+			j++;
 		}
 				
 	}

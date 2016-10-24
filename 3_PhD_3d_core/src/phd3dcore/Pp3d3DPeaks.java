@@ -43,7 +43,14 @@ public class Pp3d3DPeaks {
     		   	j++;
 				} nextRTIndex = j;
 			}
-
+			
+			//Potential speed up, move j to the WPM just before WPM for i
+			while ( mountainPoints.get(j).getWpm() < mountainPoints.get(i).getWpm() 
+					&& j <= endLoop-2 
+					&& mountainPoints.get(j).getScanNumber() == currScan) {				
+    		   	j++;
+				} nextRTIndex = j;
+				
 			currRT = mountainPoints.get(j).getRetentionTime();
 			//check this RT is within 30 seconds window from first point of 3D curve	
 			//Only check next 120 scans = approximately 30 seconds					
@@ -110,7 +117,8 @@ public class Pp3d3DPeaks {
 		double iMass = iCharge * iWpm;
 		int chargeMatch = 0;
 		
-		while (peakFound == 0 && j <= endLoop-2 && mountainPoints.get(j).getRetentionTime() == currRT) 
+		while (peakFound == 0 && j <= endLoop-2 && mountainPoints.get(j).getRetentionTime() == currRT
+				&& mountainPoints.get(j).getWpm() < (mountainPoints.get(i).getWpm() + 0.05)) 
 		{
 			int jCharge = mountainPoints.get(j).getCharge();
 			double jMass = jCharge * mountainPoints.get(j).getWpm();	
@@ -167,8 +175,15 @@ public class Pp3d3DPeaks {
 		    	pointList.add(j);	
 		    	//Added breakpoint to remove invalid iterations
 		    	break;
-			}
+			}		//Make sure we are at the end of this scan in case we skipped the main loop when j > i+1
 			j++;			
+		}
+		//Make sure we are at the end of this scan in case we skipped the main loop when j > i+1
+		while (peakFound == 0 
+				&& j <= endLoop-2 
+				&& mountainPoints.get(j).getRetentionTime() == currRT  
+				) {
+			j++;
 		}
 				
 	}

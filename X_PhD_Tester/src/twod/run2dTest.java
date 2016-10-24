@@ -102,6 +102,7 @@ public class run2dTest  {
 							writer.flush();
 //Write out iso peaks to console							
 							System.out.println(
+									  outputPoints.get(k).getCurveID() + "\t" +
 							   		  outputPoints.get(k).getWpm() + "\t" +								   		  
 									  outputPoints.get(k).getSumI() + "\t" +
 							   		  outputPoints.get(k).getCharge() 
@@ -118,5 +119,6 @@ public class run2dTest  {
 			}   	   
 				
 	   }	
+	   
 } 
 

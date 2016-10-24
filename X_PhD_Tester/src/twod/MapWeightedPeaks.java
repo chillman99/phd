@@ -9,8 +9,8 @@ public class MapWeightedPeaks {
 	int curveCount=0;				//Temp Counter while processing curvearray
 	int count=0;					//Temp Counter while construction curvearray
 	int badCurve = 0;				//flag to ignore bad curves
-	double currIntensity=0.0;			//Current intensity value
-	double lastIntensity=0.0;			//Intensity value of previous input row
+	double currIntensity=0.0;		//Current intensity value
+	double lastIntensity=0.0;		//Intensity value of previous input row
 	double PI=0;					//Intensity value of previous row in current curve
 	double PI2=0;					//Intensity value of previous row but 1 in current curve
 	int overlapFlag = 0;			//indicates that the current curve has overlapping peaks
@@ -136,6 +136,7 @@ public class MapWeightedPeaks {
 				//Add Results to WeightedArray for use by later ISO process
 				//No Single point curves
 				if (curveCount > 1 && badCurve != 1){
+				//if (curveCount > 3 && badCurve != 1){
 					WeightedPointsTemp.add (new PointWeighted(curveID, sumMZByIntensity/sumIntensity, sumIntensity, maxIntensity, 0, 0, -1));
 				} 
 				badCurve =0;
