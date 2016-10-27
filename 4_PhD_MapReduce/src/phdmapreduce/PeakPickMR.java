@@ -66,7 +66,7 @@ public int run(String[] args)
       
       //job.setNumReduceTasks(2);
       //job.setNumReduceTasks(52);
-      job.setNumReduceTasks(930);
+      job.setNumReduceTasks(42);
       job.setOutputKeyClass(IntWritable.class);
       job.setOutputValueClass(Text.class);
       job.setMapperClass(MapHDFS.class);

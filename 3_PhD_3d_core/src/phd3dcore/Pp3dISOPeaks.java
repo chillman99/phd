@@ -62,7 +62,8 @@ public class Pp3dISOPeaks {
 						   Math.pow(threedDpoints.get(outerPos).getWeightedSD(), 2) 
 						   );
 
-				   if 	   ((outerCharge == 2) && (outerWPM-innerWPM)-0.50 <= wpmDiff ){match = 1;}
+				   if 	   ((outerCharge == 1) && (outerWPM-innerWPM)-1.00 <= wpmDiff ){match = 1;}
+				   else if ((outerCharge == 2) && (outerWPM-innerWPM)-0.50 <= wpmDiff ){match = 1;}
 				   else if ((outerCharge == 3) && (outerWPM-innerWPM)-0.33 <= wpmDiff ){match = 1;}
 				   else if ((outerCharge == 4) && (outerWPM-innerWPM)-0.25 <= wpmDiff ){match = 1;}
 				   else if ((outerCharge == 5) && (outerWPM-innerWPM)-0.20 <= wpmDiff ){match = 1;}

@@ -44,7 +44,7 @@ public class MapHDFS extends Mapper<LongWritable, Text, IntWritable, Text> {
 			    		Double.toString(outputPoints.get(i).getWpm()) + "\t"  +
 			    		Double.toString(outputPoints.get(i).getSumI()) + "\t"  +						
 			    		Integer.toString(outputPoints.get(i).getCharge());
-			    		//removed inputfile outputPoints ouput for performance
+			    		//removed inputfile for performance
 			    		//+ "\t" + inputFile;	
 				peakOut.set(new Text(mzStringOut));						    		
 				try {

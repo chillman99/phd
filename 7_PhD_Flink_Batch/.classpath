@@ -34,8 +34,8 @@
 	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/kafka-clients-0.8.2.0.jar"/>
 	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/metrics-core-2.2.0.jar"/>
 	<classpathentry kind="lib" path="/Users/localadmin/Documents/javalibs/zkclient-0.3.jar"/>
-	<classpathentry kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/MapmzOutKey.jar"/>
-	<classpathentry kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/Pp2dCore.jar"/>
-	<classpathentry kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/Pp3dCore.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/MapmzOutKey.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/Pp2dCore.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/localadmin/Documents/Box Sync/UoD/PhD/code_refactored/javalibs/Pp3dCore.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

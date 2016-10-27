@@ -24,6 +24,7 @@ public class Pp3dFinalPeaks {
 		double WPMZ = 0.0;
 		double maxI = 0.0; //3d_clean
 		double normI = 0.0;
+		int boundaryCheck = 0;			//Only add peaks that dont touch a partition boundary
 		
 		ArrayList<PointThreeD> threedDpoints = new ArrayList<PointThreeD>();
 		for(int i1=0; i1 <= outputPoints.size(); i1++)    		    
@@ -33,12 +34,13 @@ public class Pp3dFinalPeaks {
 				if (currMountainID != outputPoints.get(i1).getNewMountainID()) {
 				//add the condition for overlapping peaks here to create breakpoints
 			    //might need to reallocate a point to a different peak
-					if (currMountainID > -1) {
+					if (currMountainID > -1 && boundaryCheck == 0) {
 						weightedPeakRT = weightedPeakRT / sumIntensity;
 						weighted_avg_mz = weightedPeakMz / sumIntensity;
 						weightedMzSD = Math.sqrt(weightedMeanAvg/(((numPeaks-1)*sumIntensity)/numPeaks));
 						
 						//build the final array of 3D points before Isotopic envelope detection
+						if(minRT != maxRT){
 						threedDpoints.add (new PointThreeD(	currMountainID, //curveID,
 															weighted_avg_mz,
 															sumIntensity,
@@ -49,7 +51,7 @@ public class Pp3dFinalPeaks {
 															numPeaks,
 															weightedMzSD,
 															normI));  					  		
-						
+						}
 					}
 					//reset counters
 					numPeaks = 0;
@@ -65,17 +67,20 @@ public class Pp3dFinalPeaks {
 					weightedMzSD = 0.0;
 					weightedMeanAvg = 0.0;
 					weighted_avg_mz = 0.0;
+					boundaryCheck = 0;
 				}
 			} catch(IndexOutOfBoundsException IoB) {
 				break;
 			}
 			try{
 			if(startPeak == 1){
-				minRT = outputPoints.get(i1).getRetentionTime();
 				//Calc WPM for peak
+				minRT = outputPoints.get(i1).getRetentionTime();				
 				peakCnt = i1;
 				WPMZ = 0;
 				maxI = 0.0; //3d_clean
+				charge = outputPoints.get(i1).getCharge();
+				
 				//Work out the Weighted mz for this peak first
 				while (peakCnt < outputPoints.size() && currMountainID == outputPoints.get(peakCnt).getNewMountainID()) {
 					WPMZ = WPMZ + (outputPoints.get(peakCnt).getWpm() * outputPoints.get(peakCnt).getSmoothI());
@@ -98,16 +103,16 @@ public class Pp3dFinalPeaks {
 			}	
 			
 			try {
-			sumIntensity = sumIntensity + outputPoints.get(i1).getSmoothI();				
-			numPeaks ++;
-			maxRT = outputPoints.get(i1).getRetentionTime();
-			weightedPeakMz = weightedPeakMz + (outputPoints.get(i1).getWpm() * outputPoints.get(i1).getSmoothI());
-			weightedPeakRT = weightedPeakRT + (outputPoints.get(i1).getRetentionTime()* outputPoints.get(i1).getSmoothI());
-			weighted_avg_mz = weighted_avg_mz + (outputPoints.get(i1).getWpm() * outputPoints.get(i1).getSmoothI());
-			weightedMeanAvg = weightedMeanAvg + (outputPoints.get(i1).getSmoothI() * Math.pow((outputPoints.get(i1).getWpm()-WPMZ),2));
-			//add norm calc here sum / max 	
-			outputPoints.get(i1).setNormI((outputPoints.get(i1).getSmoothI() / maxI));
-
+				sumIntensity = sumIntensity + outputPoints.get(i1).getSmoothI();				
+				numPeaks ++;
+				maxRT = outputPoints.get(i1).getRetentionTime();
+				weightedPeakMz = weightedPeakMz + (outputPoints.get(i1).getWpm() * outputPoints.get(i1).getSmoothI());
+				weightedPeakRT = weightedPeakRT + (outputPoints.get(i1).getRetentionTime()* outputPoints.get(i1).getSmoothI());
+				weighted_avg_mz = weighted_avg_mz + (outputPoints.get(i1).getWpm() * outputPoints.get(i1).getSmoothI());
+				weightedMeanAvg = weightedMeanAvg + (outputPoints.get(i1).getSmoothI() * Math.pow((outputPoints.get(i1).getWpm()-WPMZ),2));
+				//add norm calc here sum / max 	
+				outputPoints.get(i1).setNormI((outputPoints.get(i1).getSmoothI() / maxI));
+				if(outputPoints.get(i1).getBoundary() == 1) boundaryCheck = 1;
 			} catch (Exception eCalcs){
 				//zero size Array?					
 			}
@@ -118,7 +123,8 @@ public class Pp3dFinalPeaks {
 			weightedPeakRT = weightedPeakRT / sumIntensity;
 			weighted_avg_mz = weightedPeakMz / sumIntensity;
 			weightedMzSD = Math.sqrt(weightedMeanAvg/(((numPeaks-1)*sumIntensity)/numPeaks));
-			
+			//Don't add mountains with a single peak or boundary peaks
+			if(minRT != maxRT && boundaryCheck == 0){
 			threedDpoints.add (new PointThreeD(	currMountainID, //curveID,
 					weighted_avg_mz,
 					sumIntensity,
@@ -129,11 +135,10 @@ public class Pp3dFinalPeaks {
 					numPeaks,
 					weightedMzSD,
 					normI));
+			}
 		} catch (Exception eadd) {
 			//zero size array
 		}
-		
-		
 		return threedDpoints;
 	}
 		

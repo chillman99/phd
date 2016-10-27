@@ -84,9 +84,23 @@ public final class PeakPick2D implements RowFunction {
 					outputEmitter.addInt(outputPoints.get(i).getCharge());	
 					
 					outputEmitter.emitRow();
+					//Overlap Data
+					if (outputPoints.get(i).getoutKey2() != 0){
+											
+						outputEmitter.addInt(outputPoints.get(i).getoutKey2());
+						outputEmitter.addInt(Integer.parseInt(scNumber));	
+						outputEmitter.addInt(Integer.parseInt(scLevel));	
+						outputEmitter.addDouble(Double.parseDouble(RT));								
+						outputEmitter.addDouble(outputPoints.get(i).getCurveID());
+						outputEmitter.addDouble(outputPoints.get(i).getWpm());
+						outputEmitter.addDouble(outputPoints.get(i).getSumI());
+						outputEmitter.addInt(outputPoints.get(i).getCharge());	
+						
+						outputEmitter.emitRow();
+					}
 				
 				}
-		
+				
 			}
 	
 		}

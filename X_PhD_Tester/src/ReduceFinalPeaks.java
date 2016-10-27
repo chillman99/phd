@@ -115,7 +115,6 @@ public class ReduceFinalPeaks {
 		
 		//add final 3d point to array
 		try {
-			
 			weightedPeakRT = weightedPeakRT / sumIntensity;
 			weighted_avg_mz = weightedPeakMz / sumIntensity;
 			weightedMzSD = Math.sqrt(weightedMeanAvg/(((numPeaks-1)*sumIntensity)/numPeaks));

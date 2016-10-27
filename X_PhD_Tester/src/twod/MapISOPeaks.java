@@ -75,12 +75,28 @@ public class MapISOPeaks {
 		
 		//Complete so de-duplicate and add hashlist contents to arraylist, sort and return
 		ArrayList<PointWeighted> outputPoints = new ArrayList<PointWeighted>();		
+//		for (PointWeighted objLoop : WeightedPoints ) {    		    		
+//			if (!outputPoints.contains(objLoop)) {
+//				outputPoints.add(objLoop);			
+//			}
+//			
+//		}
+		double minI = 100000000.0;
+		double maxI = 0.0;
 		for (PointWeighted objLoop : WeightedPoints ) {    		    		
-			if (!outputPoints.contains(objLoop)) {
-				outputPoints.add(objLoop);			
+			if (objLoop.getSumI() < minI ) minI = objLoop.getSumI();
+			if (objLoop.getSumI() > maxI ) maxI = objLoop.getSumI();	
 			}
 			
-		}	
+		for (PointWeighted objLoop : WeightedPoints ) {    		    		
+			if (!outputPoints.contains(objLoop) 
+				&& objLoop.getSumI()>(maxI/66)
+				) 
+			{
+				outputPoints.add(objLoop);			
+			}
+		
+		}				
 		return outputPoints;		
 	}
 	
