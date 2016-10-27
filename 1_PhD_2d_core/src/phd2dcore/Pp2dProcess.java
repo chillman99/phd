@@ -38,15 +38,14 @@ public class Pp2dProcess {
 			for(int i=0; i < WeightedPoints.size(); i++) 
 			{	
 
-				if (WeightedPoints.get(i).getCharge() > 1) 
-				{	
+				//if (WeightedPoints.get(i).getCharge() > 1) 
+				//{	
 					//Get output key to decide which reducer we are sent to.
 					String[] returnKeys = MapmzOutKey.getKey(WeightedPoints.get(i).getWpm());
 					WeightedPoints.get(i).setoutKey(Integer.parseInt(returnKeys[0]));
-					WeightedPoints.get(i).setoutKey2(Integer.parseInt(returnKeys[1]));
-					
+					WeightedPoints.get(i).setoutKey2(Integer.parseInt(returnKeys[1]));					
 					outputPoints.add(WeightedPoints.get(i));
-				}
+				//}
 
 			}
 		

@@ -55,8 +55,9 @@ public class Pp2dISOPeaks {
 
 					   WeightedArrayMass = charge * WeightedArrayWPM;
 					   					
-					   if( charge > 1) {
-							//Collect the ISO peaks in an array if they have a charge greater than 1
+					   if( charge > 0) {
+					   //Collect the ISO peaks in an array if they have a charge greater than 1
+					   //CHANGED to include the charge 1 peaks
 							WeightedPoints.add (new PointWeighted(0,innerWPM,innerSUMI,innerMAXI,charge,0,-1));
 							WeightedPoints.add (new PointWeighted(0,WeightedArrayWPM,WeightedArraySUMI,WeightedArrayMAXI,charge,0,-1));						    
 							charge = 0;
@@ -69,13 +70,24 @@ public class Pp2dISOPeaks {
 		}
 		
 		//Complete so de-duplicate and add hashlist contents to arraylist, sort and return
+		//Added 50% of max intensity threshold to reduce false positives
 		ArrayList<PointWeighted> outputPoints = new ArrayList<PointWeighted>();		
+		double minI = 100000000.0;
+		double maxI = 0.0;
 		for (PointWeighted objLoop : WeightedPoints ) {    		    		
-			if (!outputPoints.contains(objLoop)) {
-				outputPoints.add(objLoop);			
+			if (objLoop.getSumI() < minI ) minI = objLoop.getSumI();
+			if (objLoop.getSumI() > maxI ) maxI = objLoop.getSumI();	
 			}
 			
-		}	
+		for (PointWeighted objLoop : WeightedPoints ) {    		    		
+			if (!outputPoints.contains(objLoop) 
+				&& objLoop.getSumI()>(maxI/99)
+				) 
+			{
+				outputPoints.add(objLoop);			
+			}
+		
+		}		
 		return outputPoints;		
 	}
 	
