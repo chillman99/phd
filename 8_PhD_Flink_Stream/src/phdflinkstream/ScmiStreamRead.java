@@ -1,7 +1,10 @@
 package phdflinkstream;
 import java.util.Properties;
+
+
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer082;
 import org.apache.flink.streaming.util.serialization.SimpleStringSchema;
 
@@ -22,9 +25,10 @@ public class ScmiStreamRead {
 		  );
 		
 		scmiScan.flatMap(new StreamMap()).print();
-
 		env.execute("Scmi Stream Processing");
+		
 	}
+	
 }
 
 /*
@@ -34,6 +38,7 @@ public class ScmiStreamRead {
 /Users/localadmin/Documents/working/kafka/kafka_2.10-0.8.2.1/bin/kafka-server-start.sh /Users/localadmin/Documents/working/kafka/kafka_2.10-0.8.2.1/config/server.properties &
 
 java -cp  /Users/localadmin/Documents/Box\ Sync/UoD/PhD/code/kafkacode/StreamScmiFile.jar StreamScmiFile 127.0.0.1:9092 127.0.0.1:2181 /Users/localadmin/Documents/Box\ Sync/UoD/PhD/data/100312_100.scmi scmiStream 500
+java -cp  /Users/localadmin/Documents/Box\ Sync/UoD/PhD/code/kafkacode/StreamScmiFile.jar StreamScmiFile 127.0.0.1:9092 127.0.0.1:2181 /Users/localadmin/Documents/Box\ Sync/UoD/PhD/dataQC/input/pt244_90005_92491.scmi scmiStream 500
 
 /Users/localadmin/Documents/working/kafka/kafka_2.10-0.8.2.1/bin/kafka-console-consumer.sh   --zookeeper localhost:2181   --topic scmiStream
 */

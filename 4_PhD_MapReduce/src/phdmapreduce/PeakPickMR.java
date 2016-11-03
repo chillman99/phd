@@ -39,6 +39,7 @@ public class PeakPickMR extends Configured
 public int run(String[] args)
     throws Exception
   {
+	
     if (args[0].equals("hdfsmap"))
     {
       Job job = new Job(getConf(), "peakpick");
@@ -66,7 +67,7 @@ public int run(String[] args)
       
       //job.setNumReduceTasks(2);
       //job.setNumReduceTasks(52);
-      job.setNumReduceTasks(42);
+      job.setNumReduceTasks(84);
       job.setOutputKeyClass(IntWritable.class);
       job.setOutputValueClass(Text.class);
       job.setMapperClass(MapHDFS.class);
@@ -85,7 +86,7 @@ public int run(String[] args)
     {
       Job job = new Job(getConf(), "peakpick");
       job.setJarByClass(getClass());
-      job.setNumReduceTasks(104);
+      job.setNumReduceTasks(84);
 
       job.setMapOutputKeyClass(Text.class);
       job.setMapOutputValueClass(IntWritable.class);
@@ -116,7 +117,7 @@ public int run(String[] args)
       ConfigHelper.setOutputRpcPort(job.getConfiguration(), "9160");
       job.getConfiguration().set("columnname", "sum");
 
-      job.setNumReduceTasks(104);
+      job.setNumReduceTasks(84);
 
       FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
@@ -183,7 +184,7 @@ public int run(String[] args)
         Text.class, 
         job);
 
-      job.setNumReduceTasks(104);
+      job.setNumReduceTasks(84);
       TableMapReduceUtil.initTableReducerJob(
         targetTable, 
         ReduceHbase.class, 

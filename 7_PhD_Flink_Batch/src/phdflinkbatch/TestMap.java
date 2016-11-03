@@ -9,8 +9,7 @@ import org.apache.flink.api.java.tuple.Tuple8;
 import org.apache.flink.util.Collector;
 import org.apache.hadoop.io.*;
 
-import phd2dcore.PointWeighted;
-import phd2dcore.Pp2dProcess;
+import phd2dcore.*;
 
 @SuppressWarnings("serial")
 public class TestMap implements FlatMapFunction<Tuple2<LongWritable, Text>, Tuple8<Integer, Double, Integer,Double,Integer,Integer,Double,Integer>>  {
@@ -37,6 +36,13 @@ public void flatMap(Tuple2<LongWritable, Text> value, Collector<Tuple8<Integer, 
 				           (outputPoints.get(i).getoutKey(), outputPoints.get(i).getWpm(),Integer.parseInt(scLevel), Double.parseDouble(RT),
 				       	   outputPoints.get(i).getCurveID(),
 				        	   Integer.parseInt(scNumber), outputPoints.get(i).getSumI(), outputPoints.get(i).getCharge()));
+				
+				if (outputPoints.get(i).getoutKey2() != -1){
+					out.collect(new Tuple8<Integer, Double, Integer,Double,Integer,Integer,Double,Integer>
+			           (outputPoints.get(i).getoutKey2(), outputPoints.get(i).getWpm(),Integer.parseInt(scLevel), Double.parseDouble(RT),
+			       	   outputPoints.get(i).getCurveID(),
+			        	   Integer.parseInt(scNumber), outputPoints.get(i).getSumI(), outputPoints.get(i).getCharge()));
+				}
 				
 				/*
 				out.collect(new Tuple2<IntWritable, Text>

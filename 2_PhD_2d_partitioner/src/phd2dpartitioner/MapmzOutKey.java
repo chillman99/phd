@@ -5,135 +5,135 @@ public class MapmzOutKey {
 	public static String[] getKey(double wpm) {
 	int outKey = 0;
 	int outKey2 = 0;	
-
-	if( (wpm >	350.001409048478) && (wpm <= 363.874374521282 )){outKey = 0;}
-	else if( (wpm >	363.874380955016) && (wpm <= 373.097892539298 )){outKey = 1;}
-	else if( (wpm >	373.097892634861) && (wpm <= 381.863343916069 )){outKey = 2;}
-	else if( (wpm >	381.863578726329) && (wpm <= 391.447189187219 )){outKey = 3;}
-	else if( (wpm >	391.447292443365) && (wpm <= 401.557600503796 )){outKey = 4;}
-	else if( (wpm >	401.557843817841) && (wpm <= 411.240248964784 )){outKey = 5;}
-	else if( (wpm >	411.240413299315) && (wpm <= 420.467425070127 )){outKey = 6;}
-	else if( (wpm >	420.467436686836) && (wpm <= 428.890965824743 )){outKey = 7;}
-	else if( (wpm >	428.890966176282) && (wpm <= 434.832355828981 )){outKey = 8;}
-	else if( (wpm >	434.832361045841) && (wpm <= 443.990637490612 )){outKey = 9;}
-	else if( (wpm >	443.990642832401) && (wpm <= 452.047026926839 )){outKey = 10;}
-	else if( (wpm >	452.047152899943) && (wpm <= 461.037000447722 )){outKey = 11;}
-	else if( (wpm >	461.037041180462) && (wpm <= 469.996025447137 )){outKey = 12;}
-	else if( (wpm >	469.996090227483) && (wpm <= 480.004134841523 )){outKey = 13;}
-	else if( (wpm >	480.004139756728) && (wpm <= 489.105633978623 )){outKey = 14;}
-	else if( (wpm >	489.105784907443) && (wpm <= 499.262190182883 )){outKey = 15;}
-	else if( (wpm >	499.262192174619) && (wpm <= 509.061759913115 )){outKey = 16;}
-	else if( (wpm >	509.061782802754) && (wpm <= 519.549907056383 )){outKey = 17;}
-	else if( (wpm >	519.550039729299) && (wpm <= 528.276480485803 )){outKey = 18;}
-	else if( (wpm >	528.276534128915) && (wpm <= 537.797056950555 )){outKey = 19;}
-	else if( (wpm >	537.797059062192) && (wpm <= 548.07821146884 )){outKey = 20;}
-	else if( (wpm >	548.078214542076) && (wpm <= 559.538521582005 )){outKey = 21;}
-	else if( (wpm >	559.538953739441) && (wpm <= 571.29012327528 )){outKey = 22;}
-	else if( (wpm >	571.290126216271) && (wpm <= 581.960070696646 )){outKey = 23;}
-	else if( (wpm >	581.960117284894) && (wpm <= 594.314870523572 )){outKey = 24;}
-	else if( (wpm >	594.314894169354) && (wpm <= 606.111496346689 )){outKey = 25;}
-	else if( (wpm >	606.111516744575) && (wpm <= 616.814516034407 )){outKey = 26;}
-	else if( (wpm >	616.814535510904) && (wpm <= 630.807591449048 )){outKey = 27;}
-	else if( (wpm >	630.807697941548) && (wpm <= 642.33468265098 )){outKey = 28;}
-	else if( (wpm >	642.334718051392) && (wpm <= 657.097226969508 )){outKey = 29;}
-	else if( (wpm >	657.098879420764) && (wpm <= 669.17810402705 )){outKey = 30;}
-	else if( (wpm >	669.178104429872) && (wpm <= 683.31857885286 )){outKey = 31;}
-	else if( (wpm >	683.319033921934) && (wpm <= 698.174964020303 )){outKey = 32;}
-	else if( (wpm >	698.175074692151) && (wpm <= 715.601630726113 )){outKey = 33;}
-	else if( (wpm >	715.601655834173) && (wpm <= 732.880952679688 )){outKey = 34;}
-	else if( (wpm >	732.881260875752) && (wpm <= 753.404296793891 )){outKey = 35;}
-	else if( (wpm >	753.404507811071) && (wpm <= 784.788305758586 )){outKey = 36;}
-	else if( (wpm >	784.788307557314) && (wpm <= 813.415480342533 )){outKey = 37;}
-	else if( (wpm >	813.415520285834) && (wpm <= 847.7793064019 )){outKey = 38;}
-	else if( (wpm >	847.781863537524) && (wpm <= 898.809905933577 )){outKey = 39;}
-	else if( (wpm >	898.810068094704) && (wpm <= 968.090632558067 )){outKey = 40;}
-	else if( (wpm >	968.090678747018) && (wpm <= 1582.83802468534 )){outKey = 41;}
-
-	//Overlap
-	if( (wpm >	363.8743745	) && (wpm <= 	368.4861303	 )){outKey2 = 	0	;}
-	else if( (wpm >	373.0978925	) && (wpm <= 	377.4806182	 )){outKey2 = 	1	;}
-	else if( (wpm >	381.8633439	) && (wpm <= 	386.6551491	 )){outKey2 = 	2	;}
-	else if( (wpm >	391.4471892	) && (wpm <= 	396.5023432	 )){outKey2 = 	3	;}
-	else if( (wpm >	401.5576005	) && (wpm <= 	406.3988031	 )){outKey2 = 	4	;}
-	else if( (wpm >	411.240249	) && (wpm <= 	415.8537549	 )){outKey2 = 	5	;}
-	else if( (wpm >	420.4674251	) && (wpm <= 	424.6791896	 )){outKey2 = 	6	;}
-	else if( (wpm >	428.8909658	) && (wpm <= 	431.8616607	 )){outKey2 = 	7	;}
-	else if( (wpm >	434.8323558	) && (wpm <= 	439.4114941	 )){outKey2 = 	8	;}
-	else if( (wpm >	443.9906375	) && (wpm <= 	448.0188295	 )){outKey2 = 	9	;}
-	else if( (wpm >	452.0470269	) && (wpm <= 	456.5419507	 )){outKey2 = 	10	;}
-	else if( (wpm >	461.0370004	) && (wpm <= 	465.5164926	 )){outKey2 = 	11	;}
-	else if( (wpm >	469.9960254	) && (wpm <= 	475.0000478	 )){outKey2 = 	12	;}
-	else if( (wpm >	480.0041348	) && (wpm <= 	484.554882	 )){outKey2 = 	13	;}
-	else if( (wpm >	489.105634	) && (wpm <= 	494.1838366	 )){outKey2 = 	14	;}
-	else if( (wpm >	499.2621902	) && (wpm <= 	504.1619741	 )){outKey2 = 	15	;}
-	else if( (wpm >	509.0617599	) && (wpm <= 	514.305822	 )){outKey2 = 	16	;}
-	else if( (wpm >	519.5499071	) && (wpm <= 	523.9131274	 )){outKey2 = 	17	;}
-	else if( (wpm >	528.2764805	) && (wpm <= 	533.0367419	 )){outKey2 = 	18	;}
-	else if( (wpm >	537.797057	) && (wpm <= 	542.9376332	 )){outKey2 = 	19	;}
-	else if( (wpm >	548.0782115	) && (wpm <= 	553.808365	 )){outKey2 = 	20	;}
-	else if( (wpm >	559.5385216	) && (wpm <= 	565.4141063	 )){outKey2 = 	21	;}
-	else if( (wpm >	571.2901233	) && (wpm <= 	576.6250955	 )){outKey2 = 	22	;}
-	else if( (wpm >	581.9600707	) && (wpm <= 	588.1374473	 )){outKey2 = 	23	;}
-	else if( (wpm >	594.3148705	) && (wpm <= 	600.2131716	 )){outKey2 = 	24	;}
-	else if( (wpm >	606.1114963	) && (wpm <= 	611.462996	 )){outKey2 = 	25	;}
-	else if( (wpm >	616.814516	) && (wpm <= 	623.811044	 )){outKey2 = 	26	;}
-	else if( (wpm >	630.8075914	) && (wpm <= 	636.5710838	 )){outKey2 = 	27	;}
-	else if( (wpm >	642.3346827	) && (wpm <= 	649.7159371	 )){outKey2 = 	28	;}
-	else if( (wpm >	657.097227	) && (wpm <= 	663.1368393	 )){outKey2 = 	29	;}
-	else if( (wpm >	669.178104	) && (wpm <= 	676.2483412	 )){outKey2 = 	30	;}
-	else if( (wpm >	683.3185789	) && (wpm <= 	690.7465439	 )){outKey2 = 	31	;}
-	else if( (wpm >	698.174964	) && (wpm <= 	706.888242	 )){outKey2 = 	32	;}
-	else if( (wpm >	715.6016307	) && (wpm <= 	724.2412791	 )){outKey2 = 	33	;}
-	else if( (wpm >	732.8809527	) && (wpm <= 	743.1424706	 )){outKey2 = 	34	;}
-	else if( (wpm >	753.4042968	) && (wpm <= 	769.0961958	 )){outKey2 = 	35	;}
-	else if( (wpm >	784.7883058	) && (wpm <= 	799.1018922	 )){outKey2 = 	36	;}
-	else if( (wpm >	813.4154803	) && (wpm <= 	830.5973734	 )){outKey2 = 	37	;}
-	else if( (wpm >	847.7793064	) && (wpm <= 	873.2933276	 )){outKey2 = 	38	;}
-	else if( (wpm >	898.8099059	) && (wpm <= 	933.4501882	 )){outKey2 = 	39	;}
-	else if( (wpm >	968.0906326	) && (wpm <= 	1275.464306	 )){outKey2 = 	40	;}
+	outKey2=-1;		
 	
-	if( (wpm >	356.9378982	) && (wpm <= 	363.874381	 )){outKey2 = 	1	;}
-	else if( (wpm >	368.4861368	) && (wpm <= 	373.0978926	 )){outKey2 = 	2	;}
-	else if( (wpm >	377.4808531	) && (wpm <= 	381.8635787	 )){outKey2 = 	3	;}
-	else if( (wpm >	386.6554872	) && (wpm <= 	391.4472924	 )){outKey2 = 	4	;}
-	else if( (wpm >	396.5026898	) && (wpm <= 	401.5578438	 )){outKey2 = 	5	;}
-	else if( (wpm >	406.3992107	) && (wpm <= 	411.2404133	 )){outKey2 = 	6	;}
-	else if( (wpm >	415.8539308	) && (wpm <= 	420.4674367	 )){outKey2 = 	7	;}
-	else if( (wpm >	424.6792016	) && (wpm <= 	428.8909662	 )){outKey2 = 	8	;}
-	else if( (wpm >	431.8616662	) && (wpm <= 	434.832361	 )){outKey2 = 	9	;}
-	else if( (wpm >	439.4115046	) && (wpm <= 	443.9906428	 )){outKey2 = 	10	;}
-	else if( (wpm >	448.0189609	) && (wpm <= 	452.0471529	 )){outKey2 = 	11	;}
-	else if( (wpm >	456.5421174	) && (wpm <= 	461.0370412	 )){outKey2 = 	12	;}
-	else if( (wpm >	465.5165981	) && (wpm <= 	469.9960902	 )){outKey2 = 	13	;}
-	else if( (wpm >	475.0001174	) && (wpm <= 	480.0041398	 )){outKey2 = 	14	;}
-	else if( (wpm >	484.5550378	) && (wpm <= 	489.1057849	 )){outKey2 = 	15	;}
-	else if( (wpm >	494.1839895	) && (wpm <= 	499.2621922	 )){outKey2 = 	16	;}
-	else if( (wpm >	504.1619989	) && (wpm <= 	509.0617828	 )){outKey2 = 	17	;}
-	else if( (wpm >	514.3059776	) && (wpm <= 	519.5500397	 )){outKey2 = 	18	;}
-	else if( (wpm >	523.9133138	) && (wpm <= 	528.2765341	 )){outKey2 = 	19	;}
-	else if( (wpm >	533.0367977	) && (wpm <= 	537.7970591	 )){outKey2 = 	20	;}
-	else if( (wpm >	542.9376383	) && (wpm <= 	548.0782145	 )){outKey2 = 	21	;}
-	else if( (wpm >	553.8088002	) && (wpm <= 	559.5389537	 )){outKey2 = 	22	;}
-	else if( (wpm >	565.4145414	) && (wpm <= 	571.2901262	 )){outKey2 = 	23	;}
-	else if( (wpm >	576.625145	) && (wpm <= 	581.9601173	 )){outKey2 = 	24	;}
-	else if( (wpm >	588.1375176	) && (wpm <= 	594.3148942	 )){outKey2 = 	25	;}
-	else if( (wpm >	600.2132157	) && (wpm <= 	606.1115167	 )){outKey2 = 	26	;}
-	else if( (wpm >	611.4630359	) && (wpm <= 	616.8145355	 )){outKey2 = 	27	;}
-	else if( (wpm >	623.81117	) && (wpm <= 	630.8076979	 )){outKey2 = 	28	;}
-	else if( (wpm >	636.5712257	) && (wpm <= 	642.3347181	 )){outKey2 = 	29	;}
-	else if( (wpm >	649.717625	) && (wpm <= 	657.0988794	 )){outKey2 = 	30	;}
-	else if( (wpm >	663.1384921	) && (wpm <= 	669.1781044	 )){outKey2 = 	31	;}
-	else if( (wpm >	676.2487967	) && (wpm <= 	683.3190339	 )){outKey2 = 	32	;}
-	else if( (wpm >	690.7471096	) && (wpm <= 	698.1750747	 )){outKey2 = 	33	;}
-	else if( (wpm >	706.8883778	) && (wpm <= 	715.6016558	 )){outKey2 = 	34	;}
-	else if( (wpm >	724.2416125	) && (wpm <= 	732.8812609	 )){outKey2 = 	35	;}
-	else if( (wpm >	743.1429899	) && (wpm <= 	753.4045078	 )){outKey2 = 	36	;}
-	else if( (wpm >	769.0964086	) && (wpm <= 	784.7883076	 )){outKey2 = 	37	;}
-	else if( (wpm >	799.1019339	) && (wpm <= 	813.4155203	 )){outKey2 = 	38	;}
-	else if( (wpm >	830.5999705	) && (wpm <= 	847.7818635	 )){outKey2 = 	39	;}
-	else if( (wpm >	873.2960469	) && (wpm <= 	898.8100681	 )){outKey2 = 	40	;}
-	else if( (wpm >	933.4503965	) && (wpm <= 	968.0906787	 )){outKey2 = 	41	;}
-	
+	if( (wpm >	0	) && (wpm <= 	356.0695117	 )){outKey = 	0	;}
+	else if( (wpm >	356.0695117	) && (wpm <= 	358.150333	 )){outKey = 	1	;}
+	else if( (wpm >	358.1503536	) && (wpm <= 	363.2159724	 )){outKey = 	2	;}
+	else if( (wpm >	363.2159739	) && (wpm <= 	369.4350423	 )){outKey = 	3	;}
+	else if( (wpm >	369.4350423	) && (wpm <= 	373.1850458	 )){outKey = 	4	;}
+	else if( (wpm >	373.185047	) && (wpm <= 	377.2289312	 )){outKey = 	5	;}
+	else if( (wpm >	377.2289312	) && (wpm <= 	383.1921859	 )){outKey = 	6	;}
+	else if( (wpm >	383.1921891	) && (wpm <= 	387.4992377	 )){outKey = 	7	;}
+	else if( (wpm >	387.4992881	) && (wpm <= 	392.4629254	 )){outKey = 	8	;}
+	else if( (wpm >	392.4629254	) && (wpm <= 	399.4096499	 )){outKey = 	9	;}
+	else if( (wpm >	399.4096499	) && (wpm <= 	404.2184769	 )){outKey = 	10	;}
+	else if( (wpm >	404.218481	) && (wpm <= 	408.4310074	 )){outKey = 	11	;}
+	else if( (wpm >	408.431075	) && (wpm <= 	413.7818551	 )){outKey = 	12	;}
+	else if( (wpm >	413.781874	) && (wpm <= 	418.2083069	 )){outKey = 	13	;}
+	else if( (wpm >	418.2083108	) && (wpm <= 	422.4563805	 )){outKey = 	14	;}
+	else if( (wpm >	422.4563805	) && (wpm <= 	428.8912899	 )){outKey = 	15	;}
+	else if( (wpm >	428.8912899	) && (wpm <= 	431.0676483	 )){outKey = 	16	;}
+	else if( (wpm >	431.0676485	) && (wpm <= 	433.046774	 )){outKey = 	17	;}
+	else if( (wpm >	433.0467767	) && (wpm <= 	439.2519327	 )){outKey = 	18	;}
+	else if( (wpm >	439.2519348	) && (wpm <= 	446.1205831	 )){outKey = 	19	;}
+	else if( (wpm >	446.1205831	) && (wpm <= 	449.0968167	 )){outKey = 	20	;}
+	else if( (wpm >	449.0968168	) && (wpm <= 	454.7468819	 )){outKey = 	21	;}
+	else if( (wpm >	454.7469067	) && (wpm <= 	460.7557108	 )){outKey = 	22	;}
+	else if( (wpm >	460.7557108	) && (wpm <= 	465.287012	 )){outKey = 	23	;}
+	else if( (wpm >	465.2870177	) && (wpm <= 	473.9857898	 )){outKey = 	24	;}
+	else if( (wpm >	473.9857935	) && (wpm <= 	482.5802883	 )){outKey = 	25	;}
+	else if( (wpm >	482.5802883	) && (wpm <= 	493.2596906	 )){outKey = 	26	;}
+	else if( (wpm >	493.2596906	) && (wpm <= 	504.604976	 )){outKey = 	27	;}
+	else if( (wpm >	504.6050014	) && (wpm <= 	516.0187753	 )){outKey = 	28	;}
+	else if( (wpm >	516.0187783	) && (wpm <= 	524.2832513	 )){outKey = 	29	;}
+	else if( (wpm >	524.2832531	) && (wpm <= 	538.1632214	 )){outKey = 	30	;}
+	else if( (wpm >	538.1632215	) && (wpm <= 	551.9362095	 )){outKey = 	31	;}
+	else if( (wpm >	551.9362127	) && (wpm <= 	568.0139073	 )){outKey = 	32	;}
+	else if( (wpm >	568.0139073	) && (wpm <= 	588.3450272	 )){outKey = 	33	;}
+	else if( (wpm >	588.3450272	) && (wpm <= 	608.5769002	 )){outKey = 	34	;}
+	else if( (wpm >	608.5792822	) && (wpm <= 	626.1134664	 )){outKey = 	35	;}
+	else if( (wpm >	626.1134664	) && (wpm <= 	656.6976313	 )){outKey = 	36	;}
+	else if( (wpm >	656.6976361	) && (wpm <= 	680.8323753	 )){outKey = 	37	;}
+	else if( (wpm >	680.8323898	) && (wpm <= 	708.3552505	 )){outKey = 	38	;}
+	else if( (wpm >	708.3552613	) && (wpm <= 	743.7105268	 )){outKey = 	39	;}
+	else if( (wpm >	743.7105886	) && (wpm <= 	784.3751882	 )){outKey = 	40	;}
+	else if( (wpm >	784.3752088			 )){outKey = 	41	;}
+							
+	if( (wpm >	353.0337994	) && (wpm <= 	356.0695117	 )){outKey2 = 	1	;}
+	else if( (wpm >	357.1099429	) && (wpm <= 	358.1503536	 )){outKey2 = 	2	;}
+	else if( (wpm >	360.6831645	) && (wpm <= 	363.2159739	 )){outKey2 = 	3	;}
+	else if( (wpm >	366.3255081	) && (wpm <= 	369.4350423	 )){outKey2 = 	4	;}
+	else if( (wpm >	371.3100452	) && (wpm <= 	373.185047	 )){outKey2 = 	5	;}
+	else if( (wpm >	375.2069891	) && (wpm <= 	377.2289312	 )){outKey2 = 	6	;}
+	else if( (wpm >	380.2105618	) && (wpm <= 	383.1921891	 )){outKey2 = 	7	;}
+	else if( (wpm >	385.3457637	) && (wpm <= 	387.4992881	 )){outKey2 = 	8	;}
+	else if( (wpm >	389.9811067	) && (wpm <= 	392.4629254	 )){outKey2 = 	9	;}
+	else if( (wpm >	395.9362877	) && (wpm <= 	399.4096499	 )){outKey2 = 	10	;}
+	else if( (wpm >	401.8140675	) && (wpm <= 	404.218481	 )){outKey2 = 	11	;}
+	else if( (wpm >	406.3248118	) && (wpm <= 	408.431075	 )){outKey2 = 	12	;}
+	else if( (wpm >	411.106484	) && (wpm <= 	413.781874	 )){outKey2 = 	13	;}
+	else if( (wpm >	415.9950944	) && (wpm <= 	418.2083108	 )){outKey2 = 	14	;}
+	else if( (wpm >	420.3323456	) && (wpm <= 	422.4563805	 )){outKey2 = 	15	;}
+	else if( (wpm >	425.6738352	) && (wpm <= 	428.8912899	 )){outKey2 = 	16	;}
+	else if( (wpm >	429.9794693	) && (wpm <= 	431.0676485	 )){outKey2 = 	17	;}
+	else if( (wpm >	432.0572139	) && (wpm <= 	433.0467767	 )){outKey2 = 	18	;}
+	else if( (wpm >	436.1493568	) && (wpm <= 	439.2519348	 )){outKey2 = 	19	;}
+	else if( (wpm >	442.6862589	) && (wpm <= 	446.1205831	 )){outKey2 = 	20	;}
+	else if( (wpm >	447.6087	) && (wpm <= 	449.0968168	 )){outKey2 = 	21	;}
+	else if( (wpm >	451.9218742	) && (wpm <= 	454.7469067	 )){outKey2 = 	22	;}
+	else if( (wpm >	457.7513088	) && (wpm <= 	460.7557108	 )){outKey2 = 	23	;}
+	else if( (wpm >	463.0213671	) && (wpm <= 	465.2870177	 )){outKey2 = 	24	;}
+	else if( (wpm >	469.6364075	) && (wpm <= 	473.9857935	 )){outKey2 = 	25	;}
+	else if( (wpm >	478.2830409	) && (wpm <= 	482.5802883	 )){outKey2 = 	26	;}
+	else if( (wpm >	487.9199895	) && (wpm <= 	493.2596906	 )){outKey2 = 	27	;}
+	else if( (wpm >	498.9323587	) && (wpm <= 	504.6050014	 )){outKey2 = 	28	;}
+	else if( (wpm >	510.3118914	) && (wpm <= 	516.0187783	 )){outKey2 = 	29	;}
+	else if( (wpm >	520.1510166	) && (wpm <= 	524.2832531	 )){outKey2 = 	30	;}
+	else if( (wpm >	531.2232373	) && (wpm <= 	538.1632215	 )){outKey2 = 	31	;}
+	else if( (wpm >	545.0497187	) && (wpm <= 	551.9362127	 )){outKey2 = 	32	;}
+	else if( (wpm >	559.97506	) && (wpm <= 	568.0139073	 )){outKey2 = 	33	;}
+	else if( (wpm >	578.1794672	) && (wpm <= 	588.3450272	 )){outKey2 = 	34	;}
+	else if( (wpm >	598.4633458	) && (wpm <= 	608.5792822	 )){outKey2 = 	35	;}
+	else if( (wpm >	617.3463743	) && (wpm <= 	626.1134664	 )){outKey2 = 	36	;}
+	else if( (wpm >	641.4055536	) && (wpm <= 	656.6976361	 )){outKey2 = 	37	;}
+	else if( (wpm >	668.7650201	) && (wpm <= 	680.8323898	 )){outKey2 = 	38	;}
+	else if( (wpm >	694.5938309	) && (wpm <= 	708.3552613	 )){outKey2 = 	39	;}
+	else if( (wpm >	726.0329558	) && (wpm <= 	743.7105886	 )){outKey2 = 	40	;}
+	else if( (wpm >	764.042909			 )){outKey2 = 	41	;}
+							
+	if( (wpm >	0	) && (wpm <= 	357.1099223	 )){outKey2 = 	0	;}
+	else if( (wpm >	358.150333	) && (wpm <= 	360.6831424	 )){outKey2 = 	1	;}
+	else if( (wpm >	363.2159724	) && (wpm <= 	366.3255066	 )){outKey2 = 	2	;}
+	else if( (wpm >	369.4350423	) && (wpm <= 	371.3100441	 )){outKey2 = 	3	;}
+	else if( (wpm >	373.1850458	) && (wpm <= 	375.206988	 )){outKey2 = 	4	;}
+	else if( (wpm >	377.2289312	) && (wpm <= 	380.2105585	 )){outKey2 = 	5	;}
+	else if( (wpm >	383.1921859	) && (wpm <= 	385.3457102	 )){outKey2 = 	6	;}
+	else if( (wpm >	387.4992377	) && (wpm <= 	389.9810564	 )){outKey2 = 	7	;}
+	else if( (wpm >	392.4629254	) && (wpm <= 	395.9362877	 )){outKey2 = 	8	;}
+	else if( (wpm >	399.4096499	) && (wpm <= 	401.8140634	 )){outKey2 = 	9	;}
+	else if( (wpm >	404.2184769	) && (wpm <= 	406.3247401	 )){outKey2 = 	10	;}
+	else if( (wpm >	408.4310074	) && (wpm <= 	411.1063975	 )){outKey2 = 	11	;}
+	else if( (wpm >	413.7818551	) && (wpm <= 	415.9950715	 )){outKey2 = 	12	;}
+	else if( (wpm >	418.2083069	) && (wpm <= 	420.3323417	 )){outKey2 = 	13	;}
+	else if( (wpm >	422.4563805	) && (wpm <= 	425.6738352	 )){outKey2 = 	14	;}
+	else if( (wpm >	428.8912899	) && (wpm <= 	429.9794691	 )){outKey2 = 	15	;}
+	else if( (wpm >	431.0676483	) && (wpm <= 	432.057211	 )){outKey2 = 	16	;}
+	else if( (wpm >	433.046774	) && (wpm <= 	436.149352	 )){outKey2 = 	17	;}
+	else if( (wpm >	439.2519327	) && (wpm <= 	442.6862568	 )){outKey2 = 	18	;}
+	else if( (wpm >	446.1205831	) && (wpm <= 	447.6086999	 )){outKey2 = 	19	;}
+	else if( (wpm >	449.0968167	) && (wpm <= 	451.9218492	 )){outKey2 = 	20	;}
+	else if( (wpm >	454.7468819	) && (wpm <= 	457.7512839	 )){outKey2 = 	21	;}
+	else if( (wpm >	460.7557108	) && (wpm <= 	463.0213614	 )){outKey2 = 	22	;}
+	else if( (wpm >	465.287012	) && (wpm <= 	469.636398	 )){outKey2 = 	23	;}
+	else if( (wpm >	473.9857898	) && (wpm <= 	478.2830371	 )){outKey2 = 	24	;}
+	else if( (wpm >	482.5802883	) && (wpm <= 	487.9199895	 )){outKey2 = 	25	;}
+	else if( (wpm >	493.2596906	) && (wpm <= 	498.9323333	 )){outKey2 = 	26	;}
+	else if( (wpm >	504.604976	) && (wpm <= 	510.3118629	 )){outKey2 = 	27	;}
+	else if( (wpm >	516.0187753	) && (wpm <= 	520.1510118	 )){outKey2 = 	28	;}
+	else if( (wpm >	524.2832513	) && (wpm <= 	531.2232355	 )){outKey2 = 	29	;}
+	else if( (wpm >	538.1632214	) && (wpm <= 	545.0497155	 )){outKey2 = 	30	;}
+	else if( (wpm >	551.9362095	) && (wpm <= 	559.9750568	 )){outKey2 = 	31	;}
+	else if( (wpm >	568.0139073	) && (wpm <= 	578.1794672	 )){outKey2 = 	32	;}
+	else if( (wpm >	588.3450272	) && (wpm <= 	598.4609637	 )){outKey2 = 	33	;}
+	else if( (wpm >	608.5769002	) && (wpm <= 	617.3439922	 )){outKey2 = 	34	;}
+	else if( (wpm >	626.1134664	) && (wpm <= 	641.4055488	 )){outKey2 = 	35	;}
+	else if( (wpm >	656.6976313	) && (wpm <= 	668.7650009	 )){outKey2 = 	36	;}
+	else if( (wpm >	680.8323753	) && (wpm <= 	694.5938057	 )){outKey2 = 	37	;}
+	else if( (wpm >	708.3552505	) && (wpm <= 	726.0328833	 )){outKey2 = 	38	;}
+	else if( (wpm >	743.7105268	) && (wpm <= 	764.0428266	 )){outKey2 = 	39	;}
+	else if( (wpm >	784.3751882	) && (wpm <= 	1192.183155	 )){outKey2 = 	40	;}
+
 	String[] returnKeys = new String[2];
 	returnKeys[0] = Integer.toString(outKey);
 	returnKeys[1] = Integer.toString(outKey2);

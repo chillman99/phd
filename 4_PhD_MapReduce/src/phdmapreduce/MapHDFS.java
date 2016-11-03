@@ -49,7 +49,7 @@ public class MapHDFS extends Mapper<LongWritable, Text, IntWritable, Text> {
 				peakOut.set(new Text(mzStringOut));						    		
 				try {
 					context.write(new IntWritable(outputPoints.get(i).getoutKey()), peakOut);
-					if (outputPoints.get(i).getoutKey2() != 0){
+					if (outputPoints.get(i).getoutKey2() != -1){
 						context.write(new IntWritable(outputPoints.get(i).getoutKey2()), peakOut);											
 					}
 				} catch (InterruptedException e) {

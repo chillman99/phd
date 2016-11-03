@@ -17,12 +17,13 @@ import com.asterdata.ncluster.sqlmr.data.SqlType;
 import phd2dcore.PointWeighted;
 import phd2dcore.Pp2dProcess;
 
+
 public final class PeakPick2D implements RowFunction {
 
 	public PeakPick2D(RuntimeContract contract) {
-		//
 		// List the columns in the input row
 		// these match those in the SQL table
+		
 		List<SqlType> expectedInputTypes = new ArrayList<SqlType>();
 		expectedInputTypes.add(SqlType.getType("integer"));			//scan
 		expectedInputTypes.add(SqlType.getType("integer"));			//mslvl
@@ -60,7 +61,7 @@ public final class PeakPick2D implements RowFunction {
 			String intensityString = new String();	
 			String RT = "0";
 		    
-		    //Parse input String from HDFS
+		    //Parse input String from the table
 		    scNumber = inputIterator.getStringAt(0);
 		    scLevel = inputIterator.getStringAt(1);
 		    RT = inputIterator.getStringAt(2);
@@ -85,7 +86,7 @@ public final class PeakPick2D implements RowFunction {
 					
 					outputEmitter.emitRow();
 					//Overlap Data
-					if (outputPoints.get(i).getoutKey2() != 0){
+					if (outputPoints.get(i).getoutKey2() != -1){
 											
 						outputEmitter.addInt(outputPoints.get(i).getoutKey2());
 						outputEmitter.addInt(Integer.parseInt(scNumber));	

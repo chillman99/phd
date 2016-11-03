@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Reduce3DPeaks {
+public class Reduce3DPeaks_keep20161030 {
 	Set<PointMountain> outputPoints = new HashSet<PointMountain>();
 	int mountainID = 0;
    	int i = 0; //Outer Loop Counter
@@ -42,14 +42,13 @@ public class Reduce3DPeaks {
     		   	j++;
 				} nextRTIndex = j;
 			}
-
-// #1
-//			//Potential speed up, move j to the WPM just before WPM for i
-//			while ( mountainPoints.get(j).getWpm() < mountainPoints.get(i).getWpm() 
-//					&& j <= endLoop-2 
-//					&& mountainPoints.get(j).getScanNumber() == currScan) {				
-//    		   	j++;
-//				} nextRTIndex = j;
+			
+			//Potential speed up, move j to the WPM just before WPM for i
+			while ( mountainPoints.get(j).getWpm() < mountainPoints.get(i).getWpm() 
+					&& j <= endLoop-2 
+					&& mountainPoints.get(j).getScanNumber() == currScan) {				
+    		   	j++;
+				} nextRTIndex = j;
 			
 //System.out.println("Outside: "
 //				+ "outerScan: " + mountainPoints.get(i).getScanNumber() 
@@ -71,7 +70,7 @@ public class Reduce3DPeaks {
 				    				    		   					
 				if (scanCount < 120 && peakFound > 0) {
 					peakFound = 0;				
-					//carry on looping from the matched point unless we already checked it before
+					//carry on looping from the matched point	
 					while (i < endLoop){
 						if (mountainPoints.get(matchpos1).getChecked() == 1){
 							matchpos1++;
@@ -132,8 +131,8 @@ public class Reduce3DPeaks {
 		while (peakFound == 0 
 				&& j <= endLoop-2 
 				&& mountainPoints.get(j).getRetentionTime() == currRT  
-				//#2 skip once > j				
-				&& mountainPoints.get(j).getWpm() < (mountainPoints.get(i).getWpm() + 0.05) 				
+				&& mountainPoints.get(j).getWpm() < (mountainPoints.get(i).getWpm() + 0.05)
+//Investigate potential speed up here 				
 				) 
 		{
 						
@@ -206,9 +205,7 @@ public class Reduce3DPeaks {
 			}
 			j++;			
 		}
-
-//#2 skip once > j
-//Make sure we are at the end of this scan in case we skipped the main loop when j > i+1
+		//Make sure we are at the end of this scan in case we skipped the main loop when j > i+1
 		while (peakFound == 0 
 				&& j <= endLoop-2 
 				&& mountainPoints.get(j).getRetentionTime() == currRT  
