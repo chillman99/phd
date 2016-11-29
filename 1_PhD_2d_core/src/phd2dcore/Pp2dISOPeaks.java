@@ -82,10 +82,10 @@ public class Pp2dISOPeaks {
 		for (PointWeighted objLoop : WeightedPoints ) {    		    		
 			if (!outputPoints.contains(objLoop)
 				//Code here to change ISO peak output threshold
-				//&& objLoop.getSumI()>(0.1*maxI)
-			    //&& objLoop.getSumI()>(0.05*maxI)
-				//&& objLoop.getSumI()>(0.01*maxI)
-				//&& objLoop.getSumI()>(0.005*maxI)			
+				//&& objLoop.getSumI()>(0.1*maxI) 	//10
+			    //&& objLoop.getSumI()>(0.05*maxI)	//5
+				&& objLoop.getSumI()>(0.01*maxI)	//1
+				//&& objLoop.getSumI()>(0.005*maxI)	//0.5					
 				) 
 			{
 				outputPoints.add(objLoop);			

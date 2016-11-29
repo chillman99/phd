@@ -28,14 +28,14 @@ public void flatMap(String inputLine, Collector<String> out) throws IOException 
 			for (int i=0; i<outputPoints.size(); i++){
 				
 				out.collect(
-						   new String(outputPoints.get(i).getoutKey() + '\t' + 
+						   //new String(outputPoints.get(i).getoutKey() + '\t' + 
 			     		   Double.toString(outputPoints.get(i).getWpm()) + '\t' + 
 			     		   scLevel + '\t' +
 			     		   RT + '\t' +
 			     		   outputPoints.get(i).getCurveID() + '\t' +
 			     		   scNumber + '\t' + 
 			     		   outputPoints.get(i).getSumI() + '\t' + 
-			     		   Integer.toString(outputPoints.get(i).getCharge())));			
+			     		   Integer.toString(outputPoints.get(i).getCharge()));			
 			}	
 			
 		}	
